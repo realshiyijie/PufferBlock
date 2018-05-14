@@ -1,6 +1,6 @@
-//websocket
-package main
+//Package websocket ...
+package websocket
 
-func main() {
+func websocket() {
 
 }
