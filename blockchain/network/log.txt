@@ -1,5 +1,3 @@
-.
-..
 base
 channel-artifacts
 configtx.yaml
@@ -9,6 +7,7 @@ docker-compose-template.yaml
 docker-compose.yaml
 end-2-end.rst
 generateArtifacts.sh
+gen.txt
 log.txt
 network_setup.sh
 README.md

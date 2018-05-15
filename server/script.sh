@@ -6,7 +6,7 @@ function generateArtifacts(){
 
 function test(){
 	cd ../blockchain/network
-	ls -a >log.txt
+	ls >log.txt
 }
 
-generateArtifacts
+test
