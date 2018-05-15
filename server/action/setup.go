@@ -7,7 +7,7 @@ import (
 )
 
 func setup() {
-	str := string("ls" + " -a")
-	out, _ := exec.Command("bash", "-c", str).Output()
+	cmd := string("bash script.sh")
+	out, _ := exec.Command("bash", "-c", cmd).Output()
 	fmt.Println(string(out))
 }

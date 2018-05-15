@@ -1,0 +1,16 @@
+.
+..
+base
+channel-artifacts
+configtx.yaml
+crypto-config
+crypto-config.yaml
+docker-compose-template.yaml
+docker-compose.yaml
+end-2-end.rst
+generateArtifacts.sh
+log.txt
+network_setup.sh
+README.md
+scripts
+script.sh
