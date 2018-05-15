@@ -1,12 +1,13 @@
-
-function generateArtifacts(){
-	cd ../blockchain/network
-	source generateArtifacts.sh >gen.txt
-}
-
-function test(){
+function test() {
 	cd ../blockchain/network
 	ls >log.txt
 }
 
-test
+function generateArtifacts() {
+	cd ../blockchain/network
+	source generateArtifacts.sh >gen.txt
+}
+
+function networkUp() {
+
+}

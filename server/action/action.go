@@ -9,3 +9,8 @@ func action() {
 func Setup() {
 	setup()
 }
+
+//Shell returns ...
+func Shell() {
+	shell()
+}
