@@ -1,11 +1,8 @@
 //Package action ...
 package action
 
-func action() {
-	setup()
-}
-
-//Shell returns ...
-func Shell() {
+//Action returns ...
+func Action() {
 	shell()
+	setup()
 }
