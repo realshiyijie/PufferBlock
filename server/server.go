@@ -1,6 +1,11 @@
 //Package main ...
 package main
 
-func main() {
+import (
+	"myrepo/PufferBlock/server/action"
+)
 
+func main() {
+	//	action.Shell()
+	action.Setup()
 }

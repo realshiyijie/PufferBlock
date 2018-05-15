@@ -7,7 +7,7 @@ IF_COUCHDB="$4"
 
 : ${CLI_TIMEOUT:="10000"}
 
-COMPOSE_FILE=docker-compose-cli.yaml
+COMPOSE_FILE=docker-compose.yaml
 COMPOSE_FILE_COUCH=docker-compose-couch.yaml
 #COMPOSE_FILE=docker-compose-e2e.yaml
 
