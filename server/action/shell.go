@@ -7,6 +7,8 @@ import (
 )
 
 func shell() {
-	out, _ := exec.Command("bash", "-c", "docker ps > log.txt").Output()
+	cmdPath, _ := exec.LookPath("docker")
+	out, _ := exec.Command("bash", "-c", "docker ps >./logs/log.txt").Output()
 	fmt.Println(string(out))
+	fmt.Println(string(cmdPath))
 }

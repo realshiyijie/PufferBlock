@@ -1,14 +1,34 @@
 //Package action ...
 package action
 
-func initCC(name string) bool {
-	return true
+import "os/exec"
+
+func initCC(name string) (Response, error) {
+	cmd := "sh script.sh" + "initCC" + " " + name
+	outAsBytes, err := exec.Command("/bin/sh", "-c", cmd).Output()
+	if err != nil {
+		return Response{false, err.Error(), ""}, nil
+	}
+	out := string(outAsBytes)
+	return Response{true, "", out}, nil
 }
 
-func invokeCC(name string, argname string, argamount int) bool {
-	return true
+func invokeCC(function string, argname string, argamount int) (Response, error) {
+	cmd := "sh script.sh" + "invokeCC" + " " + function + " " + argname + " " + string(argamount)
+	outAsBytes, err := exec.Command("/bin/sh", "-c", cmd).Output()
+	if err != nil {
+		return Response{false, err.Error(), ""}, nil
+	}
+	out := string(outAsBytes)
+	return Response{true, "", out}, nil
 }
 
-func queryCC(name string, argname string) bool {
-	return true
+func queryCC(argname string) (Response, error) {
+	cmd := "sh script.sh" + "queryCC" + " " + argname
+	outAsBytes, err := exec.Command("/bin/sh", "-c", cmd).Output()
+	if err != nil {
+		return Response{false, err.Error(), ""}, nil
+	}
+	out := string(outAsBytes)
+	return Response{true, "", out}, nil
 }

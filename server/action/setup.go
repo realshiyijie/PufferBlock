@@ -7,7 +7,7 @@ import (
 )
 
 func setup() {
-	cmd := string("bash script.sh")
-	out, _ := exec.Command("bash", "-c", cmd).Output()
+	cmd := "make test"
+	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
 	fmt.Println(string(out))
 }

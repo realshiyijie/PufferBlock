@@ -7,38 +7,26 @@ import (
 	"log"
 	"net/http"
 
-	"myrepo/PufferBlock/server/action"
-
 	"golang.org/x/net/websocket"
 )
+
+//Request ...
+type Request struct {
+	Mode     string `json:"requestmode"`
+	Name     string `json:"username"`
+	Function string `json:"command"`
+	OpName   string `json:"operatname"`
+	OpAmount int    `json:"operatamount"`
+}
 
 //Websockets returns ...
 func Websockets() {
 
 	http.Handle("/", websocket.Handler(echo))
-	if err := http.ListenAndServe(":600false", nil); err != nil {
+	if err := http.ListenAndServe(":6001", nil); err != nil {
 		log.Fatal("ListenAndServe:", err)
 	}
 
-}
-
-//Request ...
-type Request struct {
-	Mode      string `json:"requestmode"`
-	Name      string `json:"username"`
-	Cmd       string `json:"command"`
-	ArgName   string `json:"name"`
-	ArgAmount int    `json:"amount"`
-}
-
-//Response ...
-type Response struct {
-	IfSuccessful bool   `json:"result"`
-	ErrInfo      string `json:"resulterrorinfo"`
-	/*	Result       struct {
-
-		}
-	*/
 }
 
 func echo(ws *websocket.Conn) {
@@ -69,33 +57,4 @@ func echo(ws *websocket.Conn) {
 			break
 		}
 	}
-}
-
-func (req *Request) doSelect() (Response, error) {
-
-	if req.Mode == "" {
-
-		return Response{false, "no mode"}, nil
-	}
-
-	if req.Mode == "initCC" {
-		action.InitCC(req.Name)
-
-		return Response{false, "no mode"}, nil
-	}
-
-	if req.Mode == "queryCC" {
-		action.QueryCC()
-
-		return Response{false, "no mode"}, nil
-	}
-
-	if req.Mode == "invokeCC" {
-		action.InvokeCC()
-
-		return Response{false, "no mode"}, nil
-	}
-
-	resp := &Response{false, ""}
-	return *resp, nil
 }

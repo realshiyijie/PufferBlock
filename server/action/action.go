@@ -1,19 +1,26 @@
 //Package action ...
 package action
 
+//Response ...
+type Response struct {
+	IfSuccessful bool   `json:"ifsuccessful"`
+	ErrInfo      string `json:"errorinfo"`
+	Result       string `json:"result"`
+}
+
 //InitCC returns ...
-func InitCC(name string) bool {
+func InitCC(name string) (Response, error) {
 	return initCC(name)
 }
 
 //InvokeCC returns ...
-func InvokeCC(name string, argname string, argamount int) bool {
-	return invokeCC(name, argname, argamount)
+func InvokeCC(function string, argname string, argamount int) (Response, error) {
+	return invokeCC(function, argname, argamount)
 }
 
 //QueryCC returns ...
-func QueryCC(name string, argname string) bool {
-	return queryCC(name, argname)
+func QueryCC(argname string) (Response, error) {
+	return queryCC(argname)
 }
 
 //Setup returns ...
