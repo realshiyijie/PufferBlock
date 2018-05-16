@@ -14,13 +14,13 @@ func InitCC(name string) (Response, error) {
 }
 
 //InvokeCC 进行交易接口
-func InvokeCC(function string, opname string, opamount int) (Response, error) {
-	return invokeCC(function, opname, opamount)
+func InvokeCC(function string, opName string, opAmount int) (Response, error) {
+	return invokeCC(function, opName, opAmount)
 }
 
 //QueryCC 查询账户信息接口
-func QueryCC(opname string) (Response, error) {
-	return queryCC(opname)
+func QueryCC(opName string) (Response, error) {
+	return queryCC(opName)
 }
 
 //Init 初始化网络接口
