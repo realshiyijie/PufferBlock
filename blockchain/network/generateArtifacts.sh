@@ -9,27 +9,6 @@ echo
 
 OS_ARCH=$(echo "$(uname -s|tr '[:upper:]' '[:lower:]'|sed 's/mingw64_nt.*/windows/')-$(uname -m | sed 's/x86_64/amd64/g')" | awk '{print tolower($0)}')
 
-## Using docker-compose template replace private key file names with constants
-function replacePrivateKey () {
-	ARCH=`uname -s | grep Darwin`
-	if [ "$ARCH" == "Darwin" ]; then
-		OPTS="-it"
-	else
-		OPTS="-i"
-	fi
-
-	cp docker-compose-template.yaml docker-compose.yaml
-
-        CURRENT_DIR=$PWD
-        cd crypto-config/peerOrganizations/org1.example.com/ca/
-        PRIV_KEY=$(ls *_sk)
-        cd $CURRENT_DIR
-        sed $OPTS "s/CA1_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yaml
-        cd crypto-config/peerOrganizations/org2.example.com/ca/
-        PRIV_KEY=$(ls *_sk)
-        cd $CURRENT_DIR
-        sed $OPTS "s/CA2_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yaml
-}
 
 ## Generates Org certs using cryptogen tool
 function generateCerts (){
@@ -74,5 +53,4 @@ function generateChannelArtifacts() {
 }
 
 generateCerts
-replacePrivateKey
 generateChannelArtifacts

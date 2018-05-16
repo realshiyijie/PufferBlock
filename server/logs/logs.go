@@ -1,6 +1,7 @@
 //Package logs ...
 package logs
 
-func logs() {
+//Logs returns ...
+func Logs() {
 
 }

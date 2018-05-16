@@ -7,37 +7,53 @@ import (
 	"log"
 	"net/http"
 
+	"myrepo/PufferBlock/server/action"
+
 	"golang.org/x/net/websocket"
 )
 
 //Websockets returns ...
 func Websockets() {
-	//	action.Shell()
-	http.Handle("/", websocket.Handler(echo))
 
-	if err := http.ListenAndServe(":6001", nil); err != nil {
+	http.Handle("/", websocket.Handler(echo))
+	if err := http.ListenAndServe(":600false", nil); err != nil {
 		log.Fatal("ListenAndServe:", err)
 	}
 
 }
 
+//Request ...
+type Request struct {
+	Mode      string `json:"requestmode"`
+	Name      string `json:"username"`
+	Cmd       string `json:"command"`
+	ArgName   string `json:"name"`
+	ArgAmount int    `json:"amount"`
+}
+
 //Response ...
 type Response struct {
+	IfSuccessful bool   `json:"result"`
+	ErrInfo      string `json:"resulterrorinfo"`
+	/*	Result       struct {
+
+		}
+	*/
 }
 
 func echo(ws *websocket.Conn) {
 	for {
-		requstAsBytes := []byte{}
-		if err := websocket.JSON.Receive(ws, &requstAsBytes); err != nil {
+		requestAsBytes := []byte{}
+		if err := websocket.JSON.Receive(ws, &requestAsBytes); err != nil {
 			fmt.Println("Can't receive")
 			break
 		}
 
-		requst := &Response{}
-		json.Unmarshal(requstAsBytes, requst)
-		fmt.Println("Received back from client: " + string(requstAsBytes))
+		request := &Request{}
+		json.Unmarshal(requestAsBytes, request)
+		fmt.Println("Received back from client: " + string(requestAsBytes))
 
-		response, err := doSelect(requst)
+		response, err := request.doSelect()
 		if err != nil {
 			fmt.Println("Can't understand requst")
 			break
@@ -45,6 +61,7 @@ func echo(ws *websocket.Conn) {
 		responseAsBytes, err := json.Marshal(response)
 		if err != nil {
 			fmt.Println("Can't understand response")
+			break
 		}
 		fmt.Println("Sending to client: " + string(responseAsBytes))
 		if err := websocket.JSON.Send(ws, responseAsBytes); err != nil {
@@ -54,7 +71,31 @@ func echo(ws *websocket.Conn) {
 	}
 }
 
-func doSelect(req *Response) (Response, error) {
+func (req *Request) doSelect() (Response, error) {
 
-	return *req, nil
+	if req.Mode == "" {
+
+		return Response{false, "no mode"}, nil
+	}
+
+	if req.Mode == "initCC" {
+		action.InitCC(req.Name)
+
+		return Response{false, "no mode"}, nil
+	}
+
+	if req.Mode == "queryCC" {
+		action.QueryCC()
+
+		return Response{false, "no mode"}, nil
+	}
+
+	if req.Mode == "invokeCC" {
+		action.InvokeCC()
+
+		return Response{false, "no mode"}, nil
+	}
+
+	resp := &Response{false, ""}
+	return *resp, nil
 }

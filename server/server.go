@@ -8,7 +8,7 @@ import (
 
 func main() {
 	//network setup and install and instantiate chaincode
-	action.Action()
+	action.Setup()
 	//connect and wait to response
 	websockets.Websockets()
 
