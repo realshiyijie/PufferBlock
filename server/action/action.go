@@ -1,34 +1,36 @@
 //Package action ...
 package action
 
-//Response ...
+//Response 回复结构
 type Response struct {
 	IfSuccessful bool   `json:"ifsuccessful"`
 	ErrInfo      string `json:"errorinfo"`
 	Result       string `json:"result"`
 }
 
-//InitCC returns ...
+//InitCC 初始化账户接口
 func InitCC(name string) (Response, error) {
 	return initCC(name)
 }
 
-//InvokeCC returns ...
-func InvokeCC(function string, argname string, argamount int) (Response, error) {
-	return invokeCC(function, argname, argamount)
+//InvokeCC 进行交易接口
+func InvokeCC(function string, opname string, opamount int) (Response, error) {
+	return invokeCC(function, opname, opamount)
 }
 
-//QueryCC returns ...
-func QueryCC(argname string) (Response, error) {
-	return queryCC(argname)
+//QueryCC 查询账户信息接口
+func QueryCC(opname string) (Response, error) {
+	return queryCC(opname)
 }
 
-//Setup returns ...
+//Setup 初始化网络接口
 func Setup() {
-	setup()
+
+	generate()
+	networkUp()
 }
 
-//Shell returns ...
+//Shell 测试用接口
 func Shell() {
 	shell()
 }

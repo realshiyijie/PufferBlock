@@ -6,10 +6,11 @@ import (
 	"myrepo/PufferBlock/server/websockets"
 )
 
+//主程序入口
 func main() {
-	//network setup and install and instantiate chaincode
+	//初始化网络
 	//	action.Setup()
 
-	//connect and wait to response
+	//建立连接，接受请求并回复
 	websockets.Websockets()
 }

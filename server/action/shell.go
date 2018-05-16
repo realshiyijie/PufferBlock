@@ -6,6 +6,7 @@ import (
 	"os/exec"
 )
 
+//测试用
 func shell() {
 	cmdPath, _ := exec.LookPath("docker")
 	out, _ := exec.Command("bash", "-c", "docker ps >./logs/log.txt").Output()

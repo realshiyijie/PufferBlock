@@ -6,8 +6,16 @@ import (
 	"os/exec"
 )
 
-func setup() {
-	cmd := "make test"
+//生成配置文件
+func generate() {
+	cmd := "make generate"
+	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
+	fmt.Println(string(out))
+}
+
+//启动网络
+func networkUp() {
+	cmd := "make networkup"
 	out, _ := exec.Command("/bin/bash", "-c", cmd).Output()
 	fmt.Println(string(out))
 }

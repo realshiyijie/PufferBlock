@@ -10,16 +10,16 @@ import (
 	"golang.org/x/net/websocket"
 )
 
-//Request ...
+//Request 请求结构
 type Request struct {
-	Mode     string `json:"requestmode"`
+	Type     string `json:"requesttype"`
 	Name     string `json:"username"`
 	Function string `json:"command"`
 	OpName   string `json:"operatname"`
 	OpAmount int    `json:"operatamount"`
 }
 
-//Websockets returns ...
+//Websockets websocket实现
 func Websockets() {
 
 	http.Handle("/", websocket.Handler(echo))
@@ -29,6 +29,7 @@ func Websockets() {
 
 }
 
+//接收请求并回复
 func echo(ws *websocket.Conn) {
 	for {
 		requestAsBytes := []byte{}
@@ -41,11 +42,13 @@ func echo(ws *websocket.Conn) {
 		json.Unmarshal(requestAsBytes, request)
 		fmt.Println("Received back from client: " + string(requestAsBytes))
 
+		//分类解析请求，做出回复
 		response, err := request.doSelect()
 		if err != nil {
 			fmt.Println("Can't understand requst")
 			break
 		}
+
 		responseAsBytes, err := json.Marshal(response)
 		if err != nil {
 			fmt.Println("Can't understand response")
