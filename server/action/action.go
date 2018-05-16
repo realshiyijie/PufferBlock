@@ -1,4 +1,4 @@
-//Package action ...
+//Package action 定义了初始化和操作网络的方法
 package action
 
 //Response 回复结构
@@ -23,8 +23,8 @@ func QueryCC(opname string) (Response, error) {
 	return queryCC(opname)
 }
 
-//Setup 初始化网络接口
-func Setup() {
+//Init 初始化网络接口
+func Init() {
 
 	generate()
 	networkUp()

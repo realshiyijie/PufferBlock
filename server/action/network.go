@@ -1,4 +1,4 @@
-//Package action ...
+//Package action 定义了初始化和操作网络的方法
 package action
 
 import (

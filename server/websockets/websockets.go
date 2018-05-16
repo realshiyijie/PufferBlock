@@ -1,4 +1,4 @@
-//Package websockets ...
+//Package websockets 服务器侧websocket服务
 package websockets
 
 import (

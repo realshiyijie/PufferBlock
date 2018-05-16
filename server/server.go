@@ -1,5 +1,5 @@
-//Package main ...
-package main
+//Package server ...
+package server
 
 import (
 	//	"myrepo/PufferBlock/server/action"
@@ -9,7 +9,7 @@ import (
 //主程序入口
 func main() {
 	//初始化网络
-	//	action.Setup()
+	//	action.Init()
 
 	//建立连接，接受请求并回复
 	websockets.Websockets()
