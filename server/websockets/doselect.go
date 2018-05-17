@@ -26,6 +26,6 @@ func (req *Request) doSelect() (action.Response, error) {
 		}
 		return action.InvokeCC(req.Name, req.OpName, req.OpAmount)
 	}
-	//类型错误
+	//类型错误抛出
 	return action.Response{IfSuccessful: false, ErrInfo: "wrong type", Result: ""}, nil
 }
