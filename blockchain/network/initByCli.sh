@@ -1,12 +1,6 @@
 #!/bin/bash
 
-echo
-echo " ____    _____      _      ____    _____           _____   ____    _____ "
-echo "/ ___|  |_   _|    / \    |  _ \  |_   _|         | ____| |___ \  | ____|"
-echo "\___ \    | |     / _ \   | |_) |   | |    _____  |  _|     __) | |  _|  "
-echo " ___) |   | |    / ___ \  |  _ <    | |   |_____| | |___   / __/  | |___ "
-echo "|____/    |_|   /_/   \_\ |_| \_\   |_|           |_____| |_____| |_____|"
-echo
+echo "PufferBlock Network v1.0 Initial"
 
 CHANNEL_NAME="$1"
 : ${CHANNEL_NAME:="mychannel"}
@@ -20,7 +14,7 @@ echo "Channel name : "$CHANNEL_NAME
 verifyResult () {
 	if [ $1 -ne 0 ] ; then
 		echo "!!!!!!!!!!!!!!! "$2" !!!!!!!!!!!!!!!!"
-                echo "================== ERROR !!! FAILED to execute End-2-End Scenario =================="
+                echo "================== ERROR !!! FAILED to execute Initial Scenario =================="
 		echo
    		exit 1
 	fi
@@ -160,7 +154,7 @@ chaincodeQuery () {
 	echo "===================== Query on PEER$PEER on channel '$CHANNEL_NAME' is successful ===================== "
   else
 	echo "!!!!!!!!!!!!!!! Query result on PEER$PEER is INVALID !!!!!!!!!!!!!!!!"
-        echo "================== ERROR !!! FAILED to execute End-2-End Scenario =================="
+        echo "================== ERROR !!! FAILED to execute Initial Scenario =================="
 	echo
 	exit 1
   fi
@@ -208,31 +202,23 @@ echo "Instantiating chaincode on org2/peer2..."
 instantiateChaincode 2
 
 #Query on chaincode on Peer0/Org1
-echo "Querying chaincode on org1/peer0..."
-chaincodeQuery 0 100
+#echo "Querying chaincode on org1/peer0..."
+#chaincodeQuery 0 100
 
 #Invoke on chaincode on Peer0/Org1
-echo "Sending invoke transaction on org1/peer0..."
-chaincodeInvoke 0
+#echo "Sending invoke transaction on org1/peer0..."
+#chaincodeInvoke 0
 
-## Install chaincode on Peer3/Org2
+#Install chaincode on Peer3/Org2
 echo "Installing chaincode on org2/peer3..."
 installChaincode 3
 
 #Query on chaincode on Peer3/Org2, check if the result is 90
-echo "Querying chaincode on org2/peer3..."
-chaincodeQuery 3 90
+#echo "Querying chaincode on org2/peer3..."
+#chaincodeQuery 3 90
 
 echo
-echo "===================== All GOOD, End-2-End execution completed ===================== "
-echo
-
-echo
-echo " _____   _   _   ____            _____   ____    _____ "
-echo "| ____| | \ | | |  _ \          | ____| |___ \  | ____|"
-echo "|  _|   |  \| | | | | |  _____  |  _|     __) | |  _|  "
-echo "| |___  | |\  | | |_| | |_____| | |___   / __/  | |___ "
-echo "|_____| |_| \_| |____/          |_____| |_____| |_____|"
+echo "===================== successful ===================== "
 echo
 
 exit 0
