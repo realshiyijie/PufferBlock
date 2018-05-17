@@ -39,18 +39,25 @@ func (c *CarbonCC) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 
 	function, args := stub.GetFunctionAndParameters()
 	if function == "createCarbonInfo" {
+		//创建账户
 		return c.createCarbonInfo(stub, args)
 	} else if function == "queryAllCarbonInfo" {
+		//查询全部账户信息
 		return c.queryAllCarbonInfo(stub)
 	} else if function == "updateCarbonInfo" {
+		//更新账户信息
 		return c.updateCarbonInfo(stub, args)
 	} else if function == "queryByOwner" {
+		//查询指定账户信息
 		return c.queryByOwner(stub, args)
 	} else if function == "queryByMarket" {
+		//查询指定类型账户信息
 		return c.queryByMarket(stub, args)
 	} else if function == "queryByAmount" {
+		//查询指定额度账户信息
 		return c.queryByAmount(stub, args)
 	} else if function == "transfer" {
+		//进行交易
 		return c.transfer(stub, args)
 	}
 
