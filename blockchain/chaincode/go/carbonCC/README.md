@@ -74,24 +74,24 @@ peer chaincode invoke -o orderer.example.com:7050  --tls TRUE --cafile /opt/gopa
 
 #### 查询账户信息
 
-查询所有账户信息
+1.查询所有账户信息
 
 ```bash
 peer chaincode query -C mychannel -n mycc -c '{"Args":["queryAllCarbonInfo"]}' 2>&1|grep "Query Result"
 ```
 
-查询指定用户账户信息
+2.查询指定用户账户信息
 
 ```bash
 peer chaincode query -C mychannel -n mycc -c '{"Args":["queryByOwner",'\"${OWNER}\"']}' 2>&1|grep "Query Result"
 ```
 
-查询指定类型账户信息
+3.查询指定类型账户信息
 
 ```bash
 ```
 
-查询指定额度账户信息
+4.查询指定额度账户信息
 
 ```bash
 ```
