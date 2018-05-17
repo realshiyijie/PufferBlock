@@ -24,7 +24,7 @@ func (req *Request) doSelect() (action.Response, error) {
 		if req.Name != req.OpName {
 			return action.Response{IfSuccessful: false, ErrInfo: "denied", Result: ""}, nil
 		}
-		return action.InvokeCC(req.Function, req.OpName, req.OpAmount)
+		return action.InvokeCC(req.Name, req.Function, req.OpName, req.OpAmount)
 	}
 	//类型错误
 	return action.Response{IfSuccessful: false, ErrInfo: "wrong Type", Result: ""}, nil

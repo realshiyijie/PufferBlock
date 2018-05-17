@@ -14,8 +14,8 @@ func InitCC(name string) (Response, error) {
 }
 
 //InvokeCC 进行交易接口
-func InvokeCC(function string, opName string, opAmount int) (Response, error) {
-	return invokeCC(function, opName, opAmount)
+func InvokeCC(name string, function string, opName string, opAmount int) (Response, error) {
+	return invokeCC(name, function, opName, opAmount)
 }
 
 //QueryCC 查询账户信息接口

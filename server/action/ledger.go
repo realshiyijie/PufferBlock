@@ -15,7 +15,7 @@ func initCC(name string) (Response, error) {
 }
 
 //进行交易
-func invokeCC(function string, opName string, opAmount int) (Response, error) {
+func invokeCC(name string, function string, opName string, opAmount int) (Response, error) {
 	cmd := "sh server.sh" + " " + "invokeCC" + " " + function + " " + opName + " " + string(opAmount)
 	outAsBytes, err := exec.Command("/bin/sh", "-c", cmd).Output()
 	if err != nil {
