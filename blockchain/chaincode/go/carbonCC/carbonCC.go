@@ -213,11 +213,10 @@ func (c *CarbonCC) transfer(stub shim.ChaincodeStubInterface, args []string) pee
 	carbonInfoTransferorAsBytes, _ := json.Marshal(carbonInfoTransferor)
 	stub.PutState(transferor, carbonInfoTransferorAsBytes)
 
-	carbonInfoTransfereeAsBytes, _ := stub.GetState(transferee)
-	carbonInfoTransferee := &CarbonInfo{}
-	json.Unmarshal(carbonInfoTransfereeAsBytes, carbonInfoTransferee)
-	carbonInfoTransferee = &CarbonInfo{carbonInfoTransferee.Market, carbonInfoTransferee.Amount + transferAmount}
-	carbonInfoCheckAsBytes, _ = json.Marshal(carbonInfoTransferee)
+	carbonInfoCheckAsBytes, _ = stub.GetState(transferee)
+	json.Unmarshal(carbonInfoCheckAsBytes, carbonInfoCheck)
+	carbonInfoTransferee := &CarbonInfo{carbonInfoCheck.Market, carbonInfoCheck.Amount + transferAmount}
+	carbonInfoTransfereeAsBytes, _ := json.Marshal(carbonInfoTransferee)
 	stub.PutState(transferee, carbonInfoTransfereeAsBytes)
 
 	return shim.Success(nil)

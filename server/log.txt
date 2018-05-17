@@ -1,0 +1,5 @@
+CONTAINER ID        IMAGE                     COMMAND             CREATED             STATUS              PORTS                                                                       NAMES
+ec7ddcbe24fe        hyperledger/fabric-peer   "peer node start"   21 hours ago        Up 21 hours         0.0.0.0:8051->7051/tcp, 0.0.0.0:8052->7052/tcp, 0.0.0.0:8053->7053/tcp      peer1.org1.example.com
+eac1b01309d8        hyperledger/fabric-peer   "peer node start"   21 hours ago        Up 21 hours         0.0.0.0:7051-7053->7051-7053/tcp                                            peer0.org1.example.com
+795a9ec39fc5        hyperledger/fabric-peer   "peer node start"   21 hours ago        Up 21 hours         0.0.0.0:10051->7051/tcp, 0.0.0.0:10052->7052/tcp, 0.0.0.0:10053->7053/tcp   peer1.org2.example.com
+5cbfea69e5f0        hyperledger/fabric-peer   "peer node start"   21 hours ago        Up 21 hours         0.0.0.0:9051->7051/tcp, 0.0.0.0:9052->7052/tcp, 0.0.0.0:9053->7053/tcp      peer0.org2.example.com
