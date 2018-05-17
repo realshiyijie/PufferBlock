@@ -15,8 +15,8 @@ func initCC(name string) (Response, error) {
 }
 
 //进行交易
-func invokeCC(name string, function string, opName string, opAmount int) (Response, error) {
-	cmd := "sh server.sh" + " " + "invokeCC" + " " + function + " " + opName + " " + string(opAmount)
+func invokeCC(name string, opName string, opAmount int) (Response, error) {
+	cmd := "sh server.sh" + " " + "invokeCC" + " " + opName + " " + string(opAmount)
 	outAsBytes, err := exec.Command("/bin/sh", "-c", cmd).Output()
 	if err != nil {
 		return Response{false, err.Error(), ""}, nil
@@ -26,8 +26,8 @@ func invokeCC(name string, function string, opName string, opAmount int) (Respon
 }
 
 //查询账户信息
-func queryCC(opName string) (Response, error) {
-	cmd := "sh server.sh" + " " + "queryCC" + " " + opName
+func queryCC(function string, opName string) (Response, error) {
+	cmd := "sh server.sh" + " " + "queryCC" + " " + function + " " + opName
 	outAsBytes, err := exec.Command("/bin/sh", "-c", cmd).Output()
 	if err != nil {
 		return Response{false, err.Error(), ""}, nil
