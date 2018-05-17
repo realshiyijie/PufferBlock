@@ -190,32 +190,32 @@ func (c *CarbonCC) transfer(stub shim.ChaincodeStubInterface, args []string) pee
 	transferee := args[1]
 	transferAmount, _ := strconv.Atoi(args[2])
 
-	carbonInfoCheckAsBytes, err := stub.GetState(transferee)
+	carbonInfoTransfereeCheckAsBytes, err := stub.GetState(transferee)
 	if err != nil {
 		return shim.Error("Failed to get state.")
-	} else if carbonInfoCheckAsBytes == nil {
+	} else if carbonInfoTransfereeCheckAsBytes == nil {
 		return shim.Error("Transferee doesn't exist.")
 	}
 
-	carbonInfoCheckAsBytes, err = stub.GetState(transferor)
+	carbonInfoTransferorCheckAsBytes, err := stub.GetState(transferor)
 	if err != nil {
 		return shim.Error("Failed to get state.")
-	} else if carbonInfoCheckAsBytes == nil {
+	} else if carbonInfoTransferorCheckAsBytes == nil {
 		return shim.Error("Transferor doesn't exist.")
 	}
 
-	carbonInfoCheck := &CarbonInfo{}
-	json.Unmarshal(carbonInfoCheckAsBytes, carbonInfoCheck)
-	if carbonInfoCheck.Amount < transferAmount {
+	carbonInfoTransferorCheck := &CarbonInfo{}
+	json.Unmarshal(carbonInfoTransferorCheckAsBytes, carbonInfoTransferorCheck)
+	if carbonInfoTransferorCheck.Amount < transferAmount {
 		return shim.Error("Transferor Shortage.")
 	}
-	carbonInfoTransferor := &CarbonInfo{carbonInfoCheck.Market, carbonInfoCheck.Amount - transferAmount}
+	carbonInfoTransferor := &CarbonInfo{carbonInfoTransferorCheck.Market, carbonInfoTransferorCheck.Amount - transferAmount}
 	carbonInfoTransferorAsBytes, _ := json.Marshal(carbonInfoTransferor)
 	stub.PutState(transferor, carbonInfoTransferorAsBytes)
 
-	carbonInfoCheckAsBytes, _ = stub.GetState(transferee)
-	json.Unmarshal(carbonInfoCheckAsBytes, carbonInfoCheck)
-	carbonInfoTransferee := &CarbonInfo{carbonInfoCheck.Market, carbonInfoCheck.Amount + transferAmount}
+	carbonInfoTransfereeCheck := &CarbonInfo{}
+	json.Unmarshal(carbonInfoTransfereeCheckAsBytes, carbonInfoTransfereeCheck)
+	carbonInfoTransferee := &CarbonInfo{carbonInfoTransfereeCheck.Market, carbonInfoTransfereeCheck.Amount + transferAmount}
 	carbonInfoTransfereeAsBytes, _ := json.Marshal(carbonInfoTransferee)
 	stub.PutState(transferee, carbonInfoTransfereeAsBytes)
 
