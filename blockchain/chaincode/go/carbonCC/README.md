@@ -1,6 +1,8 @@
 # CarbonCC碳交易链码说明
 
-## CarbonCC链码操作指令示例
+## 链码说明
+
+## 链码操作指令示例
 
 以下示例在`fabric release-v1.0`上测试通过
 
@@ -18,7 +20,7 @@ docker exec -it cli /bin/bash
 
 1.选择`org1/peer0`执行`peer chaincode`命令
 
-```shell
+```bash
 CORE_PEER_LOCALMSPID="Org1MSP"
 CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
