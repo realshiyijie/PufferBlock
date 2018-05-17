@@ -1,4 +1,3 @@
-#set -e
 #ledger.go操作网络用脚本
 NAME=$1
 

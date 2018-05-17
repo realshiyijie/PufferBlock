@@ -1,3 +1,4 @@
+#进行交易用脚本
 NAME=$1
 OPNAME=$2
 AMOUNT=$3

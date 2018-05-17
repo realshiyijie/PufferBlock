@@ -1,3 +1,4 @@
+#查询用脚本
 FUNC=$1
 OPNAME=$2
 CHANNEL_NAME="mychannel"
