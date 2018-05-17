@@ -8,6 +8,7 @@ CHANNEL_NAME="$1"
 COUNTER=1
 MAX_RETRY=5
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+CHAINCODE_FILE=myrepo/PufferBlock/blockchain/chaincode/go/carbonCC/carbonCC.go
 
 echo "Channel name : "$CHANNEL_NAME
 
@@ -106,7 +107,7 @@ joinChannel () {
 installChaincode () {
 	PEER=$1
 	setGlobals $PEER
-	peer chaincode install -n mycc -v 1.0 -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 >&log.txt
+	peer chaincode install -n mycc -v 1.0 -p $CHAINCODE_FILE >&log.txt
 	res=$?
 	cat log.txt
         verifyResult $res "Chaincode installation on remote peer PEER$PEER has Failed"

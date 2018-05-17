@@ -1,4 +1,4 @@
-#setup.go初始化用脚本
+#network.go初始化用脚本
 
 DOCKERENV_PATH=../blockchain/network
 DOCKER_COMPOSE_CMD=docker-compose
@@ -14,7 +14,7 @@ generate:
 .PHONY: networkup
 networkup:
 	@cd $(DOCKERENV_PATH) && \
-		$(DOCKER_COMPOSE_CMD) -f docker-compose.yaml up --force-recreate
+		$(DOCKER_COMPOSE_CMD) -f docker-compose.yaml up
 
 #测试用
 .PHONY: test
