@@ -43,7 +43,7 @@ setGlobals () {
 }
 
 #初始化账户
-function initCC() {
+initCC() {
 	
 	NAME=$ARG2
 	
@@ -52,7 +52,7 @@ function initCC() {
 }
 
 #进行交易
-function invokeCC() {
+invokeCC() {
 	
 	NAME=$ARG2
 	OPNAME=$ARG3
@@ -63,7 +63,7 @@ function invokeCC() {
 }
 
 #查询账户信息
-function queryCC() {
+queryCC() {
 	
 	FUNCTION=$ARG2
 	OPNAME=$ARG3
@@ -79,20 +79,22 @@ function queryCC() {
 }
 
 #帮助
-function printHelp() {
-	
+printHelp() {
+
 	echo "check yr operate mode"
 
 }
 
 #测试用
-function test() {
+test() {
 	
 	NAME=$ARG2
 	ECHO_COMMAND="echo"
 	
 	$ECHO_COMMAND "this is: \"${NAME}\""
 	docker images > log.txt
+	bash ./logs/logs.sh
+	bash ../blockchain/network/logs.sh
 
 }
 
@@ -103,6 +105,8 @@ elif [ "${COMMAND}" == "invokeCC" ]; then
 	invokeCC	
 elif [ "${COMMAND}" == "queryCC" ]; then
 	queryCC
+elif [ "${COMMAND}" == "test" ]; then
+	test
 else
 	printHelp
 fi

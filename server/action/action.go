@@ -1,4 +1,4 @@
-//Package action 定义了初始化和操作网络的方法
+//Package action 定义了初始化网络和操作账本的方法
 package action
 
 //Response 回复结构

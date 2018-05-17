@@ -3,6 +3,9 @@
 DOCKERENV_PATH=../blockchain/network
 DOCKER_COMPOSE_CMD=docker-compose
 SOURCE_CMD=source
+CHANNEL_NAME=mychannel
+
+: ${TIMEOUT:="10000"}
 
 #生成配置文件
 .PHONY: generate
@@ -14,7 +17,7 @@ generate:
 .PHONY: networkup
 networkup:
 	@cd $(DOCKERENV_PATH) && \
-		$(DOCKER_COMPOSE_CMD) -f docker-compose.yaml up
+		$(DOCKER_COMPOSE_CMD) -f $COMPOSE_FILE up -d 2>&1
 
 #测试用
 .PHONY: test
