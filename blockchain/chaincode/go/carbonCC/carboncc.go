@@ -18,23 +18,23 @@ func main() {
 	}
 }
 
-//CarbonCC is chaincode interface
+//CarbonCC 链码结构
 type CarbonCC struct {
 }
 
-//CarbonInfo is carbon information
+//CarbonInfo 账户信息结构
 type CarbonInfo struct {
 	Market string `json:"market"`
 	Amount int    `json:"amount"`
 }
 
-//Init ...
+//Init 链码初始化接口
 func (c *CarbonCC) Init(stub shim.ChaincodeStubInterface) peer.Response {
 
 	return shim.Success(nil)
 }
 
-//Invoke ...
+//Invoke 链码操作接口
 func (c *CarbonCC) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 
 	function, args := stub.GetFunctionAndParameters()
