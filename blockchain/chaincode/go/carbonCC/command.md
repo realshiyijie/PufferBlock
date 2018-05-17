@@ -1,4 +1,6 @@
-# carbonCC链码操作指令示例
+# CarbonCC链码操作指令示例
+
+以下示例在`fabric release-v1.0`上测试通过
 
 ## 进入`fabric-cli`容器
 
