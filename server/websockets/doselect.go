@@ -1,4 +1,4 @@
-//Package websockets ...
+//Package websockets 定义了网络通信和接收以及发送消息
 package websockets
 
 import "myrepo/PufferBlock/server/action"

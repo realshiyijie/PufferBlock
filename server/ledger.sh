@@ -73,7 +73,7 @@ queryCC() {
 	elif [ "${FUNCTION}" == "queryAllCarbonInfo" ]; then
 		$DOCKER_COMMAND $PEER_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["queryAllCarbonInfo"]}' 2>&1|grep "Query Result"
 	else
-		echo "check yr query mode"
+		echo "ledger.sh-check yr query mode"
 	fi
 
 }
@@ -81,7 +81,7 @@ queryCC() {
 #帮助
 printHelp() {
 
-	echo "check yr operate mode"
+	echo "ledger.sh-check yr operate mode"
 
 }
 

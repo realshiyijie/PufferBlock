@@ -3,9 +3,6 @@
 DOCKERENV_PATH=../blockchain/network
 DOCKER_COMPOSE_CMD=docker-compose
 SOURCE_CMD=source
-CHANNEL_NAME=mychannel
-
-: ${TIMEOUT:="10000"}
 
 #生成配置文件
 .PHONY: generate

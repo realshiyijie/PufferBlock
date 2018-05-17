@@ -28,9 +28,5 @@ func Init() {
 
 	generate()
 	networkUp()
-}
 
-//Shell 测试用接口
-func Shell() {
-	shell()
 }
