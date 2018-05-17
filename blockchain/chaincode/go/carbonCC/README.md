@@ -16,7 +16,7 @@ docker exec -it cli /bin/bash
 
 #### 在执行每条`peer chaincode`命令前需要指定`peer`的所在组织`MSPID`、`TLS`根证书、`MSP`配置文件路径及通信地址
 
-##### 1.选择`org1/peer0`执行`peer chaincode`命令
+1.选择`org1/peer0`执行`peer chaincode`命令
 
 ```shell
 CORE_PEER_LOCALMSPID="Org1MSP"
@@ -25,7 +25,7 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 ```
 
-##### 2.选择`org1/peer1`执行`peer chaincode`命令
+2.选择`org1/peer1`执行`peer chaincode`命令
 
 ```shell
 CORE_PEER_LOCALMSPID="Org1MSP"
@@ -34,7 +34,7 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 CORE_PEER_ADDRESS=peer1.org1.example.com:7051
 ```
 
-##### 3.选择`org2/peer2`执行`peer chaincode`命令
+3.选择`org2/peer2`执行`peer chaincode`命令
 
 ```shell
 CORE_PEER_LOCALMSPID="Org2MSP"
@@ -43,7 +43,7 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 CORE_PEER_ADDRESS=peer0.org2.example.com:7051
 ```
 
-##### 4.选择`org2/peer3`执行`peer chaincode`命令
+4.选择`org2/peer3`执行`peer chaincode`命令
 
 ```shell
 CORE_PEER_LOCALMSPID="Org2MSP"
@@ -56,7 +56,7 @@ CORE_PEER_ADDRESS=peer1.org2.example.com:7051
 
 #### 初始化账户
 
-##### 用户向认证中心注册，登记上链之后，为新用户初始化账户信息
+用户向认证中心注册，登记上链之后，为新用户初始化账户信息
 
 ```shell
 peer chaincode invoke -o orderer.example.com:7050  --tls TRUE --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -c '{"Args":["createCarbonInfo",'\"${OWNER}\"','\"${MARKET}\"','\"${AMOUNT}\"']}' 2>&1|grep "status"
@@ -64,7 +64,7 @@ peer chaincode invoke -o orderer.example.com:7050  --tls TRUE --cafile /opt/gopa
 
 #### 更新账户信息
 
-##### 运行过程中，可以对用户账户信息进行更新
+运行过程中，可以对用户账户信息进行更新
 
 ```shell
 peer chaincode invoke -o orderer.example.com:7050  --tls TRUE --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -c '{"Args":["updateCarbonInfo",'\"${OWNER}\"','\"${MARKET}\"','\"${AMOUNT}\"']}' 2>&1|grep "status"
@@ -72,31 +72,31 @@ peer chaincode invoke -o orderer.example.com:7050  --tls TRUE --cafile /opt/gopa
 
 #### 查询账户信息
 
-##### 查询所有账户信息
+查询所有账户信息
 
 ```shell
 peer chaincode query -C mychannel -n mycc -c '{"Args":["queryAllCarbonInfo"]}' 2>&1|grep "Query Result"
 ```
 
-##### 查询指定用户账户信息
+查询指定用户账户信息
 
 ```shell
 peer chaincode query -C mychannel -n mycc -c '{"Args":["queryByOwner",'\"${OWNER}\"']}' 2>&1|grep "Query Result"
 ```
 
-##### 查询指定类型账户信息
+查询指定类型账户信息
 
 ```shell
 ```
 
-##### 查询指定额度账户信息
+查询指定额度账户信息
 
 ```shell
 ```
 
 #### 进行交易
 
-##### 向指定对象账户进行交易
+向指定对象账户进行交易
 
 ```shell
 peer chaincode invoke -o orderer.example.com:7050  --tls TRUE --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -c '{"Args":["transfer",'\"${OWNER}\"','\"${OPOWNER}\"','\"${AMOUNT}\"']}' 2>&1|grep "status"
