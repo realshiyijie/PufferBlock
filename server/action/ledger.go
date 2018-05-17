@@ -9,7 +9,7 @@ import (
 
 var command = "/bin/bash"
 var subCommand = "bash"
-var scriptFile = "script.sh"
+var scriptFile = "ledger.sh"
 
 //初始化账户
 func initCC(name string) (Response, error) {
@@ -25,7 +25,7 @@ func initCC(name string) (Response, error) {
 
 //进行交易
 func invokeCC(name string, opName string, opAmount int) (Response, error) {
-	cmd := subCommand + " " + "invokeCC.sh" + " " + "invokeCC" + " " + opName + " " + strconv.Itoa(opAmount)
+	cmd := subCommand + " " + "invokeCC.sh" + " " + "invokeCC" + " " + name + " " + opName + " " + strconv.Itoa(opAmount)
 	outAsBytes, err := exec.Command(command, "-c", cmd).Output()
 	if err != nil {
 		return Response{false, err.Error(), ""}, nil
