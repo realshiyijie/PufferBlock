@@ -1,5 +1,5 @@
-//carbonCC
-package main
+//Package carbon 碳交易链码
+package carbon
 
 import (
 	"bytes"
