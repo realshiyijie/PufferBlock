@@ -13,6 +13,7 @@ import (
 //Request 请求结构
 type Request struct {
 	Type     string `json:"requesttype"`
+	Peer     int    `json:"peer"`
 	Name     string `json:"username"`
 	Function string `json:"command"`
 	OpName   string `json:"operatname"`

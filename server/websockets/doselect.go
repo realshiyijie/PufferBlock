@@ -11,11 +11,11 @@ func (req *Request) doSelect() (action.Response, error) {
 	}
 	//初始化账户
 	if req.Type == "initCC" {
-		return action.InitCC(req.Name)
+		return action.InitCC(req.Peer, req.Name)
 	}
 	//查询账户信息
 	if req.Type == "queryCC" {
-		return action.QueryCC(req.Function, req.OpName)
+		return action.QueryCC(req.Peer, req.Function, req.OpName)
 	}
 	//进行交易
 	if req.Type == "invokeCC" {
@@ -24,7 +24,7 @@ func (req *Request) doSelect() (action.Response, error) {
 		if req.Name != req.OpName {
 			return action.Response{IfSuccessful: false, ErrInfo: "denied", Result: ""}, nil
 		}
-		return action.InvokeCC(req.Name, req.OpName, req.OpAmount)
+		return action.InvokeCC(req.Peer, req.Name, req.OpName, req.OpAmount)
 	}
 	//类型错误抛出
 	return action.Response{IfSuccessful: false, ErrInfo: "wrong type", Result: ""}, nil

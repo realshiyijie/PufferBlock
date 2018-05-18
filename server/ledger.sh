@@ -1,11 +1,11 @@
 #ledger.go操作网络用脚本
 
 #设置全局变量
-COMMAND=$1
-ARG2=$2
+PEER=$1
+COMMAND=$2
 ARG3=$3
 ARG4=$4
-PEER=$5
+ARG5=$5
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 CHANNEL_NAME="mychannel"
 DOCKER_PEER_COMMAND="docker exec cli /go/bin/peer -c"
@@ -17,15 +17,15 @@ ECHO_COMMAND="echo"
 #设置环境变量
 setGlobals() {
 
-	PEER=$1
+	PEER=$PEER
 
-	$DOCKER_BASH_COMMAND "bash ./scripts/setGlobals.sh"
+	$DOCKER_BASH_COMMAND "bash ./scripts/setGlobals.sh ${PEER}"
 }
 
 #初始化账户
 initCC() {
 	
-	NAME=$ARG2
+	NAME=$ARG3
 	
 	$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND invoke -o $OEDERER_ADDRESS  --tls TRUE --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -c '{"Args":["createCarbonInfo",'\"${NAME}\"',"RMB","100"]}' 2>&1|grep "status"
 }
@@ -33,9 +33,9 @@ initCC() {
 #进行交易
 invokeCC() {
 	
-	NAME=$ARG2
-	OPNAME=$ARG3
-	AMOUNT=$ARG4
+	NAME=$ARG3
+	OPNAME=$ARG4
+	AMOUNT=$ARG5
 	
 	$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND invoke -o $OEDERER_ADDRESS  --tls TRUE --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -c '{"Args":["transfer",'\"${NAME}\"','\"${OPNAME}\"','\"${AMOUNT}\"']}' 2>&1|grep "status"
 }
@@ -43,12 +43,12 @@ invokeCC() {
 #查询账户信息
 queryCC() {
 	
-	FUNCTION=$ARG2
-	OPNAME=$ARG3
+	FUNCTION=$ARG3
+	OPNAME=$ARG4
 	
-	if [ "${FUNCTION}" == "queryByOwner" ]; then
+	if [ "${FUNCTION}" == "queryOne" ]; then
 		$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["queryByOwner",'\"${OPNAME}\"']}' 2>&1|grep "Query Result"
-	elif [ "${FUNCTION}" == "queryAllCarbonInfo" ]; then
+	elif [ "${FUNCTION}" == "queryAll" ]; then
 		$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["queryAllCarbonInfo"]}' 2>&1|grep "Query Result"
 	else
 		$ECHO_COMMAND "ledger.sh-check yr query mode"
@@ -71,15 +71,15 @@ arg5Help() {
 test() {
 	
 	$ECHO_COMMAND "peer${PEER}"
-	$ECHO_COMMAND "this is: \"${ARG2}\""
+	$ECHO_COMMAND "this is: \"${ARG3}\""
 	docker images > log.txt
 	bash ./logs/logs.sh
 	bash ../blockchain/network/logs.sh
 }
 
 #选择执行的操作
-if [ ${PEER} -ge 0 -o ${PEER} -le 3 ]; then
-	setGlobals $PEER
+if [ ${PEER} -ge 0 ]; then
+	setGlobals
 	if [ "${COMMAND}" == "initCC" ]; then
 		initCC
 	elif [ "${COMMAND}" == "invokeCC" ]; then

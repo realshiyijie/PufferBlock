@@ -24,23 +24,20 @@ setGlobals () {
 		if [ $PEER -eq 2 ]; then
 			CORE_PEER_ADDRESS=peer0.org2.example.com:7051
 			echo "PEER${PEER} is ready"
-		else
+		elif
 			CORE_PEER_ADDRESS=peer1.org2.example.com:7051
 			echo "PEER${PEER} is ready"
-		fi
+		else
+			arg1Help
 	fi
 
 	env |grep CORE
 }
 
-#帮助
-printHelp() {
-
-	echo "setGlobals.sh-check yr chosen peer"
+#帮助1
+arg1Help() {
+	
+	echo "setGlobals.sh-peer${PEER} does not exist"
 }
 
-if [ $PEER -ge 0 -o $PEER le 3 ]; then
-	setGlobals
-else
-	printHelp
-fi
+setGlobals

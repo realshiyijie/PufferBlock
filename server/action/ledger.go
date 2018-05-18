@@ -13,8 +13,8 @@ var subCommand = "bash"
 var ledgerScript = "ledger.sh"
 
 //初始化账户
-func initCC(name string) (Response, error) {
-	cmd := subCommand + " " + ledgerScript + " " + "initCC" + " " + name
+func initCC(peer int, name string) (Response, error) {
+	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "initCC" + " " + name
 	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
 	if err != nil {
 		fmt.Println("ledger-" + err.Error())
@@ -26,8 +26,8 @@ func initCC(name string) (Response, error) {
 }
 
 //进行交易
-func invokeCC(name string, opName string, opAmount int) (Response, error) {
-	cmd := subCommand + " " + ledgerScript + " " + "invokeCC" + " " + name + " " + opName + " " + strconv.Itoa(opAmount)
+func invokeCC(peer int, name string, opName string, opAmount int) (Response, error) {
+	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "invokeCC" + " " + name + " " + opName + " " + strconv.Itoa(opAmount)
 	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
 	if err != nil {
 		fmt.Println("ledger-" + err.Error())
@@ -39,8 +39,8 @@ func invokeCC(name string, opName string, opAmount int) (Response, error) {
 }
 
 //查询账户信息
-func queryCC(function string, opName string) (Response, error) {
-	cmd := subCommand + " " + ledgerScript + " " + "queryCC" + " " + function + " " + opName
+func queryCC(peer int, function string, opName string) (Response, error) {
+	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "queryCC" + " " + function + " " + opName
 	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
 	if err != nil {
 		fmt.Println("ledger-" + err.Error())

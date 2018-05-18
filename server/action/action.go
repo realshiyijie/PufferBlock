@@ -9,18 +9,18 @@ type Response struct {
 }
 
 //InitCC 初始化账户接口
-func InitCC(name string) (Response, error) {
-	return initCC(name)
+func InitCC(peer int, name string) (Response, error) {
+	return initCC(peer, name)
 }
 
 //InvokeCC 进行交易接口
-func InvokeCC(name string, opName string, opAmount int) (Response, error) {
-	return invokeCC(name, opName, opAmount)
+func InvokeCC(peer int, name string, opName string, opAmount int) (Response, error) {
+	return invokeCC(peer, name, opName, opAmount)
 }
 
 //QueryCC 查询账户信息接口
-func QueryCC(function string, opName string) (Response, error) {
-	return queryCC(function, opName)
+func QueryCC(peer int, function string, opName string) (Response, error) {
+	return queryCC(peer, function, opName)
 }
 
 //Init 初始化网络接口
