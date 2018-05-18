@@ -8,7 +8,7 @@ func (req *Request) doSelect() (action.Response, error) {
 
 	//缺少类型检查
 	if req.Type == "" {
-		return action.Response{IfSuccessful: false, ErrInfo: "no such type", Result: ""}, nil
+		return action.Response{IfSuccessful: false, ErrInfo: "nil type", Result: ""}, nil
 	}
 
 	//初始化账户
