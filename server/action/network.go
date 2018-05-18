@@ -15,6 +15,13 @@ func generate() {
 	fmt.Println(string(out))
 }
 
+//启动网络并初始化
+func networkUpAndInitByCli() {
+	cmd := subCommand + " " + networkScript + " " + "networkUpAndInitByCli"
+	out, _ := exec.Command(command, commandArg, cmd).Output()
+	fmt.Println(string(out))
+}
+
 //启动网络
 func networkUp() {
 	cmd := subCommand + " " + networkScript + " " + "networkUp"

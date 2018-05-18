@@ -15,8 +15,8 @@ generate() {
 
 }
 
-#启动网络
-networkUp() {
+#启动网络并初始化
+networkUpAndInitByCli() {
 
     $DOCKER_COMPOSE_CMD -f $COMPOSE_FILE up -d 2>&1
 
@@ -44,9 +44,11 @@ test() {
 
 if [ "${ARG1}" == "test" ]; then
     test
-elif [ "${ARG1}" == "setup" ]; then
+elif [ "${ARG1}" == "setupByCli" ]; then
     generate
-    networkUp
+    networkUpAndInitByCli
+elif [ "${ARG1}" == "setup" ]; then
+	generate
 else
     printHelp
 fi
