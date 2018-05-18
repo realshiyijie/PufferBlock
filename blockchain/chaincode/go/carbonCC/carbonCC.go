@@ -15,7 +15,7 @@ import (
 func main() {
 	err := shim.Start(new(CarbonCC))
 	if err != nil {
-		fmt.Printf("Error creating new Smart Contract: %s", err)
+		fmt.Printf("carbonCC-Error creating new Smart Contract: %s", err)
 	}
 }
 
@@ -76,7 +76,7 @@ func (c *CarbonCC) createCarbonInfo(stub shim.ChaincodeStubInterface, args []str
 	market := args[1]
 	amount, err := strconv.Atoi(args[2])
 	if err != nil {
-		return shim.Error(err.Error())
+		return shim.Error("carbonCC-" + err.Error())
 	}
 	carbonInfo := &CarbonInfo{market, amount}
 
@@ -89,7 +89,7 @@ func (c *CarbonCC) createCarbonInfo(stub shim.ChaincodeStubInterface, args []str
 
 	carbonInfoAsBytes, err := json.Marshal(carbonInfo)
 	if err != nil {
-		return shim.Error(err.Error())
+		return shim.Error("carbonCC-" + err.Error())
 	}
 	stub.PutState(owner, carbonInfoAsBytes)
 
@@ -100,6 +100,7 @@ func (c *CarbonCC) createCarbonInfo(stub shim.ChaincodeStubInterface, args []str
 
 func (c *CarbonCC) queryAllCarbonInfo(stub shim.ChaincodeStubInterface) peer.Response {
 
+	//按照用户名命名规则选定范围：a~zzzzzzzzzz
 	startKey := "a"
 	endKey := "zzzzzzzzzz"
 
@@ -115,7 +116,7 @@ func (c *CarbonCC) queryAllCarbonInfo(stub shim.ChaincodeStubInterface) peer.Res
 	for allCarbonInfoAsBytes.HasNext() {
 		queryResponse, err := allCarbonInfoAsBytes.Next()
 		if err != nil {
-			return shim.Error(err.Error())
+			return shim.Error("carbonCC-" + err.Error())
 		}
 		if writtenFlag == true {
 			buffer.WriteString(",")
@@ -144,7 +145,7 @@ func (c *CarbonCC) updateCarbonInfo(stub shim.ChaincodeStubInterface, args []str
 	market := args[1]
 	amount, err := strconv.Atoi(args[2])
 	if err != nil {
-		return shim.Error(err.Error())
+		return shim.Error("carbonCC-" + err.Error())
 	}
 	carbonInfo := &CarbonInfo{market, amount}
 
@@ -157,7 +158,7 @@ func (c *CarbonCC) updateCarbonInfo(stub shim.ChaincodeStubInterface, args []str
 
 	carbonInfoAsBytes, err := json.Marshal(carbonInfo)
 	if err != nil {
-		return shim.Error(err.Error())
+		return shim.Error("carbonCC-" + err.Error())
 	}
 	stub.PutState(owner, carbonInfoAsBytes)
 
@@ -202,7 +203,7 @@ func (c *CarbonCC) transfer(stub shim.ChaincodeStubInterface, args []string) pee
 	transferee := strings.ToLower(args[1])
 	transferAmount, err := strconv.Atoi(args[2])
 	if err != nil {
-		return shim.Error(err.Error())
+		return shim.Error("carbonCC-" + err.Error())
 	}
 
 	carbonInfoTransfereeCheckAsBytes, err := stub.GetState(transferee)
@@ -227,7 +228,7 @@ func (c *CarbonCC) transfer(stub shim.ChaincodeStubInterface, args []string) pee
 	carbonInfoTransferor := &CarbonInfo{carbonInfoTransferorCheck.Market, carbonInfoTransferorCheck.Amount - transferAmount}
 	carbonInfoTransferorAsBytes, err := json.Marshal(carbonInfoTransferor)
 	if err != nil {
-		return shim.Error(err.Error())
+		return shim.Error("carbonCC-" + err.Error())
 	}
 	stub.PutState(transferor, carbonInfoTransferorAsBytes)
 
@@ -236,7 +237,7 @@ func (c *CarbonCC) transfer(stub shim.ChaincodeStubInterface, args []string) pee
 	carbonInfoTransferee := &CarbonInfo{carbonInfoTransfereeCheck.Market, carbonInfoTransfereeCheck.Amount + transferAmount}
 	carbonInfoTransfereeAsBytes, err := json.Marshal(carbonInfoTransferee)
 	if err != nil {
-		return shim.Error(err.Error())
+		return shim.Error("carbonCC-" + err.Error())
 	}
 	stub.PutState(transferee, carbonInfoTransfereeAsBytes)
 

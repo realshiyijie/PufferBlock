@@ -17,6 +17,7 @@ func initCC(name string) (Response, error) {
 	cmd := subCommand + " " + ledgerScript + " " + "initCC" + " " + name
 	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
 	if err != nil {
+		fmt.Println("ledger-" + err.Error())
 		return Response{false, err.Error(), ""}, nil
 	}
 	out := string(outAsBytes)
@@ -29,6 +30,7 @@ func invokeCC(name string, opName string, opAmount int) (Response, error) {
 	cmd := subCommand + " " + ledgerScript + " " + "invokeCC" + " " + name + " " + opName + " " + strconv.Itoa(opAmount)
 	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
 	if err != nil {
+		fmt.Println("ledger-" + err.Error())
 		return Response{false, err.Error(), ""}, nil
 	}
 	out := string(outAsBytes)
@@ -41,6 +43,7 @@ func queryCC(function string, opName string) (Response, error) {
 	cmd := subCommand + " " + ledgerScript + " " + "queryCC" + " " + function + " " + opName
 	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
 	if err != nil {
+		fmt.Println("ledger-" + err.Error())
 		return Response{false, err.Error(), ""}, nil
 	}
 	out := string(outAsBytes)

@@ -34,7 +34,7 @@ func echo(ws *websocket.Conn) {
 	for {
 		requestAsBytes := []byte{}
 		if err := websocket.JSON.Receive(ws, &requestAsBytes); err != nil {
-			fmt.Println("Can't receive")
+			fmt.Println("websockets-Can't receive")
 			break
 		}
 
@@ -45,18 +45,18 @@ func echo(ws *websocket.Conn) {
 		//分类解析请求，做出回复
 		response, err := request.doSelect()
 		if err != nil {
-			fmt.Println("Can't understand requst")
+			fmt.Println("websockets-Can't understand requst")
 			break
 		}
 
 		responseAsBytes, err := json.Marshal(response)
 		if err != nil {
-			fmt.Println("Can't understand response")
+			fmt.Println("websockets-Can't understand response")
 			break
 		}
 		fmt.Println("Sending to client: " + string(responseAsBytes))
 		if err := websocket.JSON.Send(ws, responseAsBytes); err != nil {
-			fmt.Println("Can't send")
+			fmt.Println("websockets-Can't send")
 			break
 		}
 	}
