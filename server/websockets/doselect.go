@@ -31,7 +31,7 @@ func (req *Request) doSelect() (action.Response, error) {
 		return action.QueryUser(req.Peer, req.OpName)
 	}
 
-	//
+	//查询所有账户信息
 	if req.Type == "queryAll" {
 		return action.QueryAll(req.Peer)
 	}
