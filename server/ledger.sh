@@ -23,7 +23,7 @@ setGlobals() {
 }
 
 #初始化账户
-initCC() {
+initUser() {
 	
 	NAME=$ARG3
 	
@@ -31,7 +31,7 @@ initCC() {
 }
 
 #进行交易
-invokeCC() {
+invoke() {
 	
 	NAME=$ARG3
 	OPNAME=$ARG4
@@ -41,28 +41,28 @@ invokeCC() {
 }
 
 #查询账户信息
-queryCC() {
+queryUser() {
 	
 	FUNCTION=$ARG3
 	OPNAME=$ARG4
 	
-	if [ "${FUNCTION}" == "queryOne" ]; then
-		$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["queryByOwner",'\"${OPNAME}\"']}' 2>&1|grep "Query Result"
-	elif [ "${FUNCTION}" == "queryAll" ]; then
-		$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["queryAllCarbonInfo"]}' 2>&1|grep "Query Result"
-	else
-		$ECHO_COMMAND "ledger.sh-check yr query mode"
-	fi
+	$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["queryByOwner",'\"${OPNAME}\"']}' 2>&1|grep "Query Result"
 }
 
-#帮助1
-arg1Help() {
+#查询所有账户信息
+queryAll() {
+
+	$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["queryAllCarbonInfo"]}' 2>&1|grep "Query Result"
+}
+
+#帮助2
+arg2Help() {
 
 	$ECHO_COMMAND "ledger.sh-check yr operate mode"
 }
 
-#帮助5
-arg5Help() {
+#帮助1
+arg1Help() {
 
 	$ECHO_COMMAND "ledger.sh-check yr chosen peer"
 }
@@ -80,19 +80,21 @@ test() {
 #选择执行的操作
 if [ ${PEER} -ge 0 ]; then
 	setGlobals
-	if [ "${COMMAND}" == "initCC" ]; then
-		initCC
-	elif [ "${COMMAND}" == "invokeCC" ]; then
-		invokeCC	
-	elif [ "${COMMAND}" == "queryCC" ]; then
-		queryCC
+	if [ "${COMMAND}" == "initUser" ]; then
+		initUser
+	elif [ "${COMMAND}" == "invoke" ]; then
+		invoke	
+	elif [ "${COMMAND}" == "queryUser" ]; then
+		queryUser
+	elif [ "${COMMAND}" == "queryAll" ]; then
+		queryAll
 	elif [ "${COMMAND}" == "test" ]; then
 		test
 	else
-		arg1Help
+		arg2Help
 	fi
 elif [ "${COMMAND}" == "test" ]; then
 	test
 else
-	arg5Help
+	arg1Help
 fi

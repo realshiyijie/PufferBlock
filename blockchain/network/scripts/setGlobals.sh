@@ -24,14 +24,14 @@ setGlobals () {
 		if [ $PEER -eq 2 ]; then
 			CORE_PEER_ADDRESS=peer0.org2.example.com:7051
 			echo "PEER${PEER} is ready"
-		elif
+		elif [ $PEER -eq 3 ]; then
 			CORE_PEER_ADDRESS=peer1.org2.example.com:7051
 			echo "PEER${PEER} is ready"
 		else
 			arg1Help
 	fi
 
-	env |grep CORE
+#	env |grep CORE
 }
 
 #帮助1
