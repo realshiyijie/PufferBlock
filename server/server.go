@@ -1,5 +1,5 @@
-//Package server ...
-package server
+//Package main ...
+package main
 
 import (
 	//	"myrepo/PufferBlock/server/action"
