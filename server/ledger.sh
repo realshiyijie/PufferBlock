@@ -1,4 +1,4 @@
-#ledger.go操作网络用脚本
+#ledger.go操作账本用脚本
 
 #设置全局变量
 PEER=$1
@@ -13,6 +13,7 @@ DOCKER_BASH_COMMAND="docker exec cli /bin/bash -c"
 PEER_CHAINCODE_COMMAND="peer chaincode"
 OEDERER_ADDRESS="orderer.example.com:7050"
 ECHO_COMMAND="echo"
+NETWORK_PATH="../blockchain/network"
 
 #设置环境变量
 setGlobals() {
@@ -74,7 +75,7 @@ test() {
 	$ECHO_COMMAND "this is: \"${ARG3}\""
 	docker images > log.txt
 	bash ./logs/logs.sh
-	bash ../blockchain/network/logs.sh
+	bash ${NETWORK_PATH}/logs.sh
 }
 
 #选择执行的操作
