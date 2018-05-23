@@ -44,8 +44,7 @@ invoke() {
 #查询账户信息
 queryUser() {
 	
-	FUNCTION=$ARG3
-	OPNAME=$ARG4
+	OPNAME=$ARG3
 	
 	$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["queryByOwner",'\"${OPNAME}\"']}' 2>&1|grep "Query Result"
 }
@@ -59,6 +58,8 @@ queryAll() {
 #查询所有账户信息
 getHistory() {
 
+	OPNAME=$ARG3
+	
 	$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["getHistoryForOwner",'\"${OPNAME}\"']}' 2>&1|grep "Query Result"
 }
 
@@ -95,7 +96,7 @@ if [ ${PEER} -ge 0 ]; then
 		queryUser
 	elif [ "${COMMAND}" == "queryAll" ]; then
 		queryAll
-	elif [ "${COMMAND}" == "queryAll" ]; then
+	elif [ "${COMMAND}" == "getHistory" ]; then
 		getHistory
 	elif [ "${COMMAND}" == "test" ]; then
 		test

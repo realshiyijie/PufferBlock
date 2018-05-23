@@ -66,7 +66,7 @@ func queryAll(peer int) (Response, error) {
 
 //获取指定账户历史信息
 func getHistory(peer int, opName string) (Response, error) {
-	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "getHistory"
+	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "getHistory" + " " + opName
 	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
 	if err != nil {
 		fmt.Println("ledger-" + err.Error())

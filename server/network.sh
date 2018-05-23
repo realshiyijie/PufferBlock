@@ -7,8 +7,8 @@ NETWORK_PATH="../blockchain/network"
 DOCKER_COMPOSE_CMD=docker-compose
 SOURCE_CMD="source"
 CHANNEL_NAME=mychannel
-DOCKER_COMPOSE_CLI=docker-compose-cli.yaml
-DOCKER_COMPOSE=docker-compose.yaml
+DOCKER_COMPOSE_CLI=../blockchain/network/docker-compose-cli.yaml
+DOCKER_COMPOSE=../blockchain/network/docker-compose.yaml
 DOCKER_BASH_COMMAND="docker exec cli /bin/bash -c"
 
 #生成初始配置
