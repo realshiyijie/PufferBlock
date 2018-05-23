@@ -2,66 +2,88 @@
 package main
 
 import (
-	"fmt"
-	"html/template"
 	"log"
 	"net/http"
+
+	//"golang.org/x/net/websocket"
+	"github.com/gorilla/websocket"
 )
 
-func checkErr(err error) {
-	if err != nil {
-		log.Println(err)
-	}
+//记录已连接的客户端
+var clients = make(map[*websocket.Conn]bool)
+
+//广播通道
+var broadcast = make(chan Request)
+
+//升级到http连接到websocket协议
+var upgrader = websocket.Upgrader{}
+
+//Request 请求结构
+type Request struct {
+	Type     string `json:"requesttype"`
+	Peer     int    `json:"peer"`
+	Name     string `json:"username"`
+	OpName   string `json:"operatname"`
+	OpAmount int    `json:"operatamount"`
 }
 
-// 存放用户数据
-type UserData struct {
-	Name string
-	Text string
-}
-
-// 渲染页面并输出
-func renderHTML(w http.ResponseWriter, file string, data interface{}) {
-	// 获取页面内容
-	t, err := template.New(file).ParseFiles("views/" + file)
-	checkErr(err)
-	// 将页面渲染后反馈给客户端
-	t.Execute(w, data)
-}
-
-// 处理主页请求
-func index(w http.ResponseWriter, r *http.Request) {
-	// 渲染页面并输出
-	renderHTML(w, "c.html", "no data")
-}
-
-// 处理用户提交的数据
-func page(w http.ResponseWriter, r *http.Request) {
-	// 我们规定必须通过 POST 提交数据
-	if r.Method == "POST" {
-		// 解析客户端请求的信息
-		if err := r.ParseForm(); err != nil {
-			log.Println("Handler:page:ParseForm: ", err)
-		}
-
-		// 获取客户端输入的内容
-		u := UserData{}
-		u.Name = r.Form.Get("username")
-		u.Text = r.Form.Get("usertext")
-		fmt.Printf(u.Name)
-		// 渲染页面并输出
-		renderHTML(w, "c.html", u)
-	} else {
-		// 如果不是通过 POST 提交的数据，则将页面重定向到主页
-		renderHTML(w, "c.html", "/")
-	}
-}
+/*type Request struct {
+	Email    string `json:"email"`
+	Username string `json:"username"`
+	Message  string `json:"message"`
+}*/
 
 func main() {
-	http.HandleFunc("/", index)              // 设置访问的路由
-	http.HandleFunc("/page", page)           // 设置访问的路由
-	err := http.ListenAndServe(":9090", nil) // 设置监听的端口
+	//创建静态文件服务
+	fs := http.FileServer(http.Dir("views/"))
+	http.Handle("/", fs)
+	//设置路由和处理连接方法
+	http.HandleFunc("/ws", handleConnections)
+	// Start listening for incoming chat messages
+	go handleRequest()
+	// Start the server on localhost port 8000 and log any errors
+	log.Println("http server started on :8080")
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
+	}
+}
+
+func handleConnections(w http.ResponseWriter, r *http.Request) {
+	// Upgrade initial GET request to a websocket
+	ws, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Make sure we close the connection when the function returns
+	defer ws.Close()
+	// Register our new client
+	clients[ws] = true
+	for {
+		var req Request // Read in a new message as JSON and map it to a Message object
+		err := ws.ReadJSON(&req)
+		if err != nil {
+			log.Printf("error: %v", err)
+			delete(clients, ws)
+			break
+		}
+		// Send the newly received message to the broadcast channel
+		broadcast <- req
+	}
+}
+
+func handleRequest() {
+	for {
+		// Grab the next message from the broadcast channel
+		msg := <-broadcast
+		// Send it out to every client that is currently connected
+		for client := range clients {
+			err := client.WriteJSON(msg)
+			if err != nil {
+				log.Printf("error: %v", err)
+				client.Close()
+				delete(clients, client)
+			}
+		}
 	}
 }

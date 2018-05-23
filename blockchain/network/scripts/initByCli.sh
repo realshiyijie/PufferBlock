@@ -8,7 +8,7 @@ CHANNEL_NAME="$1"
 COUNTER=1
 MAX_RETRY=5
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
-CHAINCODE_FILE=myrepo/PufferBlock/blockchain/chaincode/go/carbonCC
+CHAINCODE_FILE=github.com/hyperledger/fabric/examples/chaincode/go/carbonCC
 
 echo "Channel name : "$CHANNEL_NAME
 
