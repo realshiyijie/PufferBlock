@@ -63,3 +63,16 @@ func queryAll(peer int) (Response, error) {
 	fmt.Println(out)
 	return Response{true, "", out}, nil
 }
+
+//获取指定账户历史信息
+func getHistory(peer int, opName string) (Response, error) {
+	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "getHistory"
+	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
+	if err != nil {
+		fmt.Println("ledger-" + err.Error())
+		return Response{false, err.Error(), ""}, nil
+	}
+	out := string(outAsBytes)
+	fmt.Println(out)
+	return Response{true, "", out}, nil
+}

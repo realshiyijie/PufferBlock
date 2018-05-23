@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"github.com/hyperledger/fabric/protos/peer"
@@ -60,6 +61,9 @@ func (c *CarbonCC) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 	} else if function == "transfer" {
 		//进行交易
 		return c.transfer(stub, args)
+	} else if function == "getHistoryForOwner" {
+		//获取指定账户历史信息
+		return c.getHistoryForOwner(stub, args)
 	}
 
 	return shim.Error("carbonCC-Invalid Smart Contract function name.")
@@ -104,17 +108,17 @@ func (c *CarbonCC) queryAllCarbonInfo(stub shim.ChaincodeStubInterface) peer.Res
 	startKey := "a"
 	endKey := "zzzzzzzzzz"
 
-	allCarbonInfoAsBytes, err := stub.GetStateByRange(startKey, endKey)
+	allCarbonInfoIterator, err := stub.GetStateByRange(startKey, endKey)
 	if err != nil {
 		return shim.Error("carbonCC-Failed to get state by range.")
 	}
-	defer allCarbonInfoAsBytes.Close()
+	defer allCarbonInfoIterator.Close()
 
 	var buffer bytes.Buffer
 	buffer.WriteString("[")
 	writtenFlag := false
-	for allCarbonInfoAsBytes.HasNext() {
-		queryResponse, err := allCarbonInfoAsBytes.Next()
+	for allCarbonInfoIterator.HasNext() {
+		queryResponse, err := allCarbonInfoIterator.Next()
 		if err != nil {
 			return shim.Error("carbonCC-" + err.Error())
 		}
@@ -242,4 +246,47 @@ func (c *CarbonCC) transfer(stub shim.ChaincodeStubInterface, args []string) pee
 	stub.PutState(transferee, carbonInfoTransfereeAsBytes)
 
 	return shim.Success(nil)
+}
+
+//获取指定账户历史信息
+func (c *CarbonCC) getHistoryForOwner(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+
+	if len(args) != 1 {
+		return shim.Error("carbonCC-Incorrect number of arguments. Expecting 1.")
+	}
+	owner := args[0]
+
+	historyIterator, err := stub.GetHistoryForKey(owner)
+	if err != nil {
+		return shim.Error("carbonCC-Failed to get history for " + owner + ".")
+	}
+	defer historyIterator.Close()
+
+	var buffer bytes.Buffer
+	buffer.WriteString("[")
+	writtenFlag := false
+	for historyIterator.HasNext() {
+		historyData, err := historyIterator.Next()
+		if err != nil {
+			return shim.Error("carbonCC-" + err.Error())
+		}
+		if writtenFlag == true {
+			buffer.WriteString(",")
+		}
+		buffer.WriteString("{\"TxId\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(historyData.TxId)
+		buffer.WriteString("\"")
+		buffer.WriteString(", \"Value\":")
+		buffer.WriteString(string(historyData.Value))
+		buffer.WriteString(", \"TimeStamp\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(time.Unix(historyData.Timestamp.Seconds, int64(historyData.Timestamp.Nanos)).String())
+		buffer.WriteString("\"")
+		buffer.WriteString("}")
+		writtenFlag = true
+	}
+	buffer.WriteString("]")
+
+	return shim.Success(buffer.Bytes())
 }

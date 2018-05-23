@@ -32,6 +32,11 @@ func QueryAll(peer int) (Response, error) {
 	return queryAll(peer)
 }
 
+//GetHistory 获取指定账户历史信息接口
+func GetHistory(peer int, opName string) (Response, error) {
+	return getHistory(peer, opName)
+}
+
 //InitNetwork 初始化网络接口
 func InitNetwork() {
 

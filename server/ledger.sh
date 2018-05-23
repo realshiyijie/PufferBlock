@@ -56,6 +56,12 @@ queryAll() {
 	$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["queryAllCarbonInfo"]}' 2>&1|grep "Query Result"
 }
 
+#查询所有账户信息
+getHistory() {
+
+	$DOCKER_PEER_COMMAND $PEER_CHAINCODE_COMMAND query -C $CHANNEL_NAME -n mycc -c '{"Args":["getHistoryForOwner",'\"${OPNAME}\"']}' 2>&1|grep "Query Result"
+}
+
 #帮助2
 arg2Help() {
 
@@ -89,6 +95,8 @@ if [ ${PEER} -ge 0 ]; then
 		queryUser
 	elif [ "${COMMAND}" == "queryAll" ]; then
 		queryAll
+	elif [ "${COMMAND}" == "queryAll" ]; then
+		getHistory
 	elif [ "${COMMAND}" == "test" ]; then
 		test
 	else
