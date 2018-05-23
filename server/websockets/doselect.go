@@ -36,6 +36,11 @@ func (req *Request) doSelect() (action.Response, error) {
 		return action.QueryAll(req.Peer)
 	}
 
+	//获取指定账户历史信息
+	if req.Type == "getHistory" {
+		return action.GetHistory(req.Peer, req.OpName)
+	}
+
 	//类型错误抛出
 	return action.Response{IfSuccessful: false, ErrInfo: "wrong type", Result: ""}, nil
 }

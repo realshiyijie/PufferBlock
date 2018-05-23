@@ -5,6 +5,7 @@ import (
 	"myrepo/PufferBlock/server/action"
 	"time"
 	//"myrepo/PufferBlock/server/websockets"
+	"myrepo/PufferBlock/server/webserver"
 )
 
 //主程序入口
@@ -16,11 +17,12 @@ func main() {
 	//websockets.Websockets()
 
 	//测试
-	//test
+	//testAction
+	testWebserver()
 }
 
 //测试链码操作
-func test() {
+func testAction() {
 
 	action.InitUser(0, "a")
 	action.InitUser(2, "b")
@@ -30,4 +32,9 @@ func test() {
 	time.Sleep(time.Second * 3)
 	action.QueryUser(0, "a")
 	action.QueryUser(2, "b")
+}
+
+func testWebserver() {
+
+	webserver.Webserver()
 }
