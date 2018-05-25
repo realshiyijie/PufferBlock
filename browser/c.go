@@ -13,25 +13,17 @@ import (
 var clients = make(map[*websocket.Conn]bool)
 
 //广播通道
-var broadcast = make(chan Request)
+var broadcast = make(chan Message)
 
 //升级到http连接到websocket协议
 var upgrader = websocket.Upgrader{}
 
-//Request 请求结构
-type Request struct {
-	Type     string `json:"requesttype"`
-	Peer     int    `json:"peer"`
-	Name     string `json:"username"`
-	OpName   string `json:"operatname"`
-	OpAmount int    `json:"operatamount"`
-}
-
-/*type Request struct {
+//Message 请求结构
+type Message struct {
 	Email    string `json:"email"`
 	Username string `json:"username"`
 	Message  string `json:"message"`
-}*/
+}
 
 func main() {
 	//创建静态文件服务
@@ -39,9 +31,9 @@ func main() {
 	http.Handle("/", fs)
 	//设置路由和处理连接方法
 	http.HandleFunc("/ws", handleConnections)
-	// Start listening for incoming chat messages
+	//开始接收和处理请求
 	go handleRequest()
-	// Start the server on localhost port 8000 and log any errors
+	//开始监听8080端口
 	log.Println("http server started on :8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
@@ -50,35 +42,35 @@ func main() {
 }
 
 func handleConnections(w http.ResponseWriter, r *http.Request) {
-	// Upgrade initial GET request to a websocket
+	//升级http连接到websocket协议
 	ws, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	// Make sure we close the connection when the function returns
+	//函数返回后关闭此连接
 	defer ws.Close()
-	// Register our new client
+	//注册新客户端
 	clients[ws] = true
 	for {
-		var req Request // Read in a new message as JSON and map it to a Message object
+		var req Message
 		err := ws.ReadJSON(&req)
 		if err != nil {
 			log.Printf("error: %v", err)
 			delete(clients, ws)
 			break
 		}
-		// Send the newly received message to the broadcast channel
+		//发送接受的请求到消息广播通道
 		broadcast <- req
 	}
 }
 
 func handleRequest() {
 	for {
-		// Grab the next message from the broadcast channel
-		msg := <-broadcast
-		// Send it out to every client that is currently connected
+		//从消息广播通道接收消息
+		req := <-broadcast
+		//发送消息到每个已连接客户端
 		for client := range clients {
-			err := client.WriteJSON(msg)
+			err := client.WriteJSON(req)
 			if err != nil {
 				log.Printf("error: %v", err)
 				client.Close()
