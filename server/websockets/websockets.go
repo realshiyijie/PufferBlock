@@ -40,7 +40,7 @@ func main() {
 	log.Println("http server started on :8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
+		log.Fatal("websockets-ListenAndServe: ", err)
 	}
 }
 
@@ -60,7 +60,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 		resp, err := req.doSelect()
 		//resp := req
 		if err != nil {
-			log.Printf("error: %v", err)
+			log.Printf("websockets-error: %v", err)
 			delete(clients, ws)
 			break
 		}
@@ -77,7 +77,7 @@ func handleRequest() {
 		for client := range clients {
 			err := client.WriteJSON(resp)
 			if err != nil {
-				log.Printf("error: %v", err)
+				log.Printf("websockets-error: %v", err)
 				client.Close()
 				delete(clients, client)
 			}
