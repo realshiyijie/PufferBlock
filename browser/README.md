@@ -6,7 +6,7 @@
 
 ![点击注册按钮](/home/shiyijie/go/src/myrepo/PufferBlock/browser/pages/init.png)
 
-输入用户名（**1~10位英文字母**）,点击**提交**按钮：
+输入用户名（**1~10位英文字母,不区分大小写**）,点击**提交**按钮：
 
 ![输入注册用户名](/home/shiyijie/go/src/myrepo/PufferBlock/browser/pages/printInitName.png)
 
