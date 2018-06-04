@@ -1,14 +1,21 @@
-# CarbonCC碳交易链码说明
+# CarbonCC碳链说明
 
 ## 链码说明
 
+```go
+type CarbonInfo struct {
+    Market string `json:"market"`
+    Amount int    `json:"amount"`
+}
+```
+
 ## 链码操作指令示例
 
-以下示例在`fabric release-v1.0`上测试通过
+以下示例在***fabric release-v1.0***上测试通过
 
-### 进入**fabric-cli**容器
+### 进入***fabric-cli***容器
 
-#### 进入**fabric-cli**容器并打开命令行
+#### 进入***fabric-cli***容器并打开命令行
 
 ```bash
 docker exec -it cli /bin/bash
@@ -16,9 +23,9 @@ docker exec -it cli /bin/bash
 
 ### 指定环境变量
 
-#### 在执行每条`peer chaincode`命令前需要指定**peer**的所在组织**MSPID**、**TLS**根证书、**MSP**配置文件路径及通信地址
+#### 在执行每条***`peer chaincode`***命令前需要指定***peer***的所在组织***MSPID***、***TLS***根证书、***MSP***配置文件路径及通信地址
 
-1.选择**org1/peer0**执行`peer chaincode`命令
+1.选择***org1/peer0***执行***`peer chaincode`***命令
 
 ```bash
 CORE_PEER_LOCALMSPID="Org1MSP"
@@ -27,7 +34,7 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 ```
 
-2.选择**org1/peer1**执行`peer chaincode`命令
+2.选择***org1/peer1***执行***`peer chaincode`***命令
 
 ```bash
 CORE_PEER_LOCALMSPID="Org1MSP"
@@ -36,7 +43,7 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 CORE_PEER_ADDRESS=peer1.org1.example.com:7051
 ```
 
-3.选择**org2/peer2**执行`peer chaincode`命令
+3.选择***org2/peer2***执行***`peer chaincode`***命令
 
 ```bash
 CORE_PEER_LOCALMSPID="Org2MSP"
@@ -45,7 +52,7 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 CORE_PEER_ADDRESS=peer0.org2.example.com:7051
 ```
 
-4.选择**org2/peer3**执行`peer chaincode`命令
+4.选择***org2/peer3***执行***`peer chaincode`***命令
 
 ```bash
 CORE_PEER_LOCALMSPID="Org2MSP"
@@ -54,7 +61,7 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 CORE_PEER_ADDRESS=peer1.org2.example.com:7051
 ```
 
-### 执行`peer chaincode`命令
+### 执行***`peer chaincode`***命令
 
 #### 初始化账户
 
@@ -89,11 +96,13 @@ peer chaincode query -C mychannel -n mycc -c '{"Args":["queryByOwner",'\"${OWNER
 3.查询指定类型账户信息
 
 ```bash
+
 ```
 
 4.查询指定额度账户信息
 
 ```bash
+
 ```
 
 #### 进行交易
