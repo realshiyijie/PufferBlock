@@ -10,7 +10,7 @@
 
 #### 进入`fabric-cli`容器并打开命令行
 
-```shell
+```bash
 docker exec -it cli /bin/bash
 ```
 

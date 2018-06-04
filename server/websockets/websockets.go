@@ -30,7 +30,7 @@ type Request struct {
 
 func main() {
 	//创建静态文件服务
-	fs := http.FileServer(http.Dir("views/"))
+	fs := http.FileServer(http.Dir("../brower/"))
 	http.Handle("/", fs)
 	//设置路由和处理连接方法
 	http.HandleFunc("/ws", handleConnections)

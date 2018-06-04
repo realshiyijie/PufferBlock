@@ -27,12 +27,13 @@ type Message struct {
 
 func main() {
 	//创建静态文件服务
-	fs := http.FileServer(http.Dir("views/"))
+	//fs := http.FileServer(http.Dir("views/"))
+	fs := http.FileServer(http.Dir("."))
 	http.Handle("/", fs)
 	//设置路由和处理连接方法
 	http.HandleFunc("/ws", handleConnections)
 	//开始接收和处理请求
-	go handleRequest()
+	go handleMessages()
 	//开始监听8080端口
 	log.Println("http server started on :8080")
 	err := http.ListenAndServe(":8080", nil)
@@ -64,7 +65,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func handleRequest() {
+func handleMessages() {
 	for {
 		//从消息广播通道接收消息
 		req := <-broadcast
