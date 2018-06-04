@@ -38,7 +38,7 @@
 
 ![输入获取历史记录用户名](/home/shiyijie/go/src/myrepo/PufferBlock/browser/pages/printHistoryName.png)
 
-## 发起交易
+## 进行交易
 
 点击**交易**按钮，进入发起交易页面：
 
@@ -47,4 +47,3 @@
 输入交易信息，点击**提交**按钮：
 
 ![输入交易信息](/home/shiyijie/go/src/myrepo/PufferBlock/browser/pages/printInvokeInfo.png)
-
