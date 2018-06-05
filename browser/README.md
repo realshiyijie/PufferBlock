@@ -4,11 +4,11 @@
 
 点击**注册**按钮，进入注册页面：
 
-![点击注册按钮](/pages/init.png)
+![点击注册按钮](/PufferBlock/browser/pages/init.png)
 
 输入用户名（**1~10位英文字母,不区分大小写**）,点击**提交**按钮：
 
-![输入注册用户名](/pages/printInitName.png)
+![输入注册用户名](/PufferBlock/browser/pages/printInitName.png)
 
 ## 查询信息账户信息
 
@@ -16,34 +16,34 @@
 
 点击**所有账户**按钮，进入查询所有账户页面：
 
-![点击所有账户按钮](/pages/queryAll.png)
+![点击所有账户按钮](/PufferBlock/browser/pages/queryAll.png)
 
 ### 查询指定账户信息
 
 点击**指定账户**按钮，进入查询指定账户页面：
 
-![点击指定账户按钮](/pages/queryUser.png)
+![点击指定账户按钮](/PufferBlock/browser/pages/queryUser.png)
 
 输入用户名，点击**提交**按钮：
 
-![输入查询用户名](/pages/printQueryName.png)
+![输入查询用户名](/PufferBlock/browser/pages/printQueryName.png)
 
 ## 获取账户历史信息
 
 点击**历史记录**按钮，进入获取账户历史记录页面：
 
-![点击历史记录按钮](/pages/History.png)
+![点击历史记录按钮](/PufferBlock/browser/pages/history.png)
 
 输入用户名，点击**提交**按钮：
 
-![输入获取历史记录用户名](/pages/printHistoryName.png)
+![输入获取历史记录用户名](/PufferBlock/browser/pages/printHistoryName.png)
 
 ## 进行交易
 
 点击**交易**按钮，进入发起交易页面：
 
-![点击交易按钮](/pages/invoke.png)
+![点击交易按钮](/PufferBlock/browser/pages/invoke.png)
 
 输入交易信息，点击**提交**按钮：
 
-![输入交易信息](/pages/printInvokeInfo.png)
+![输入交易信息](/PufferBlock/browser/pages/printInvokeInfo.png)
