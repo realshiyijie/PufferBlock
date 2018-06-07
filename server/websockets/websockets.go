@@ -6,8 +6,8 @@ import (
 	"myrepo/PufferBlock/server/action"
 	"net/http"
 
-	//"golang.org/x/net/websocket"
 	"github.com/gorilla/websocket"
+	//"golang.org/x/net/websocket"
 )
 
 //记录已连接的客户端
@@ -28,7 +28,8 @@ type Request struct {
 	OpAmount int    `json:"operatamount"`
 }
 
-func main() {
+//Websockets ...
+func Websockets() {
 	//创建静态文件服务
 	fs := http.FileServer(http.Dir("../brower/"))
 	http.Handle("/", fs)
@@ -37,7 +38,7 @@ func main() {
 	//开始接收和处理请求
 	go handleRequest()
 	//开始监听8080端口
-	log.Println("http server started on :8080")
+	log.Println("http server started on http://localhost:8080/")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal("websockets-ListenAndServe: ", err)

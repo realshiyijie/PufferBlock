@@ -2,7 +2,10 @@
 
 ## 启动`fabric`网络
 
+以下是启动fabric-e2e示例的网络：
+
 ```bash
+cd $GOPATH/src/PufferBlock/blockchain/network/e2e
 ./network_setup.sh up
 ```
 
@@ -15,4 +18,4 @@ go run server.go
 
 ## 启动用户界面
 
-打开浏览器，前往[localhost:8080](http://localhost:8080)。
+打开浏览器，前往[localhost:8080](http://localhost:8080/)。

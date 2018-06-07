@@ -3,9 +3,9 @@ package main
 
 import (
 	"myrepo/PufferBlock/server/action"
-	"time"
-	//"myrepo/PufferBlock/server/websockets"
 	"myrepo/PufferBlock/server/webserver"
+	"myrepo/PufferBlock/server/websockets"
+	"time"
 )
 
 //主程序入口
@@ -18,7 +18,9 @@ func main() {
 
 	//测试
 	//testAction
-	testWebserver()
+	//testWebserver()
+
+	websockets.Websockets()
 }
 
 //测试链码操作
