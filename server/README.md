@@ -2,8 +2,6 @@
 
 ## 启动`fabric`网络
 
-以下是启动fabric-e2e示例的网络：
-
 ```bash
 cd $GOPATH/src/PufferBlock/blockchain/network/e2e
 ./network_setup.sh up
