@@ -38,7 +38,7 @@ func Websockets() {
 	//开始接收和处理请求
 	go handleRequest()
 	//开始监听8080端口
-	log.Println("http server started on http://localhost:8080/")
+	log.Println("http server started on :8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal("websockets-ListenAndServe: ", err)

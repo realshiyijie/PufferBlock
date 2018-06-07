@@ -14,13 +14,11 @@ func main() {
 	//action.Init()
 
 	//建立连接，接受请求并回复
-	//websockets.Websockets()
+	websockets.Websockets()
 
 	//测试
 	//testAction
 	//testWebserver()
-
-	websockets.Websockets()
 }
 
 //测试链码操作
