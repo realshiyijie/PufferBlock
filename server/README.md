@@ -5,14 +5,14 @@
 以下是启动fabric-e2e示例的网络：
 
 ```bash
-cd $GOPATH/src/PufferBlock/blockchain/network/e2e
+cd blockchain/network/e2e/
 ./network_setup.sh up
 ```
 
 ## 启动服务端
 
 ```bash
-cd $GOPATH/src/PufferBlock/server/
+cd server/
 go run server.go
 ```
 
