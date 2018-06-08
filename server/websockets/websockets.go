@@ -2,6 +2,7 @@
 package websockets
 
 import (
+	"fmt"
 	"log"
 	"myrepo/PufferBlock/server/action"
 	"net/http"
@@ -38,7 +39,7 @@ func Websockets() {
 	//开始接收和处理请求
 	go handleRequest()
 	//开始监听8080端口
-	log.Println("http server started on http://localhost:8080/")
+	log.Println("http server started on :8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal("websockets-ListenAndServe: ", err)
@@ -58,13 +59,20 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	for {
 		var req Request
 		err := ws.ReadJSON(&req)
-		resp, err := req.doSelect()
-		//resp := req
 		if err != nil {
-			log.Printf("websockets-error: %v", err)
+			log.Printf("websockets-ReadJSON error: %v", err)
 			delete(clients, ws)
 			break
 		}
+		fmt.Println(req)
+
+		resp, err := req.doSelect()
+		if err != nil {
+			log.Printf("websockets-doSelect error: %v", err)
+		}
+		//resp := req
+		fmt.Println(resp)
+
 		//发送接受的请求到消息广播通道
 		broadcast <- resp
 	}
@@ -74,11 +82,17 @@ func handleRequest() {
 	for {
 		//从消息广播通道接收消息
 		resp := <-broadcast
+		respStru := action.Response{
+			IfSuccessful: resp.IfSuccessful,
+			ErrInfo:      resp.ErrInfo,
+			Result:       resp.Result,
+		}
+
 		//发送消息到每个已连接客户端
 		for client := range clients {
-			err := client.WriteJSON(resp)
+			err := client.WriteJSON(respStru)
 			if err != nil {
-				log.Printf("websockets-error: %v", err)
+				log.Printf("websockets-WriteJSON error: %v", err)
 				client.Close()
 				delete(clients, client)
 			}
