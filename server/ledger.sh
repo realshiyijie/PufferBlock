@@ -75,16 +75,6 @@ arg1Help() {
 	$ECHO_COMMAND "ledger.sh-check yr chosen peer"
 }
 
-#测试用
-test() {
-	
-	$ECHO_COMMAND "peer${PEER}"
-	$ECHO_COMMAND "this is: \"${ARG3}\""
-	docker images > log.txt
-	bash ./logs/logs.sh
-	bash ${NETWORK_PATH}/logs.sh
-}
-
 #选择执行的操作
 if [ ${PEER} -ge 0 ]; then
 	setGlobals
@@ -103,8 +93,6 @@ if [ ${PEER} -ge 0 ]; then
 	else
 		arg2Help
 	fi
-elif [ "${COMMAND}" == "test" ]; then
-	test
 else
 	arg1Help
 fi

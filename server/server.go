@@ -3,22 +3,12 @@ package main
 
 import (
 	"myrepo/PufferBlock/server/action"
-	"myrepo/PufferBlock/server/webserver"
 	"myrepo/PufferBlock/server/websockets"
 	"time"
 )
 
 //主程序入口
 func main() {
-	//初始化网络
-	//action.Init()
-
-	//建立连接，接受请求并回复
-	//websockets.Websockets()
-
-	//测试
-	//testAction
-	//testWebserver()
 
 	websockets.Websockets()
 }
@@ -34,9 +24,4 @@ func testAction() {
 	time.Sleep(time.Second * 3)
 	action.QueryUser(0, "a")
 	action.QueryUser(2, "b")
-}
-
-func testWebserver() {
-
-	webserver.Webserver()
 }
