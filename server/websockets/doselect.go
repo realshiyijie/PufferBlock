@@ -20,7 +20,7 @@ func (req *Request) doSelect() (action.Response, error) {
 	if req.Type == "invoke" {
 
 		//拒接非法交易
-		if req.Name != req.OpName {
+		if req.Name == req.OpName {
 			return action.Response{IfSuccessful: false, ErrInfo: "denied", Result: ""}, nil
 		}
 		return action.Invoke(req.Peer, req.Name, req.OpName, req.OpAmount)

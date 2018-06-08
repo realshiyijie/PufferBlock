@@ -1,10 +1,9 @@
-//Package websockets 定义了网络通信和接收以及发送消息
-package websockets
+// main.go
+package main
 
 import (
 	"fmt"
 	"log"
-	"myrepo/PufferBlock/server/action"
 	"net/http"
 
 	"github.com/gorilla/websocket"
@@ -15,24 +14,22 @@ import (
 var clients = make(map[*websocket.Conn]bool)
 
 //广播通道
-var broadcast = make(chan action.Response)
+var broadcast = make(chan Message)
 
 //升级到http连接到websocket协议
 var upgrader = websocket.Upgrader{}
 
-//Request 请求结构
-type Request struct {
-	Type     string `json:"requesttype"`
-	Peer     int    `json:"peer"`
-	Name     string `json:"username"`
-	OpName   string `json:"operatname"`
-	OpAmount int    `json:"operatamount"`
+//Message 消息结构
+type Message struct {
+	Email    string `json:"email"`
+	Username string `json:"username"`
+	Message  string `json:"message"`
 }
 
 //Websockets ...
-func Websockets() {
+func main() {
 	//创建静态文件服务
-	fs := http.FileServer(http.Dir("../brower/"))
+	fs := http.FileServer(http.Dir("chat/"))
 	http.Handle("/", fs)
 	//设置路由和处理连接方法
 	http.HandleFunc("/ws", handleConnections)
@@ -57,42 +54,28 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	//注册新客户端
 	clients[ws] = true
 	for {
-		var req Request
-		err := ws.ReadJSON(&req)
+		var msg Message
+		err := ws.ReadJSON(&msg)
+		fmt.Println(msg)
 		if err != nil {
-			log.Printf("websockets-ReadJSON error: %v", err)
+			log.Printf("websockets-error: %v", err)
 			delete(clients, ws)
 			break
 		}
-		fmt.Println(req)
-
-		resp, err := req.doSelect()
-		if err != nil {
-			log.Printf("websockets-doSelect error: %v", err)
-		}
-		//resp := req
-		fmt.Println(resp)
-
 		//发送接受的请求到消息广播通道
-		broadcast <- resp
+		broadcast <- msg
 	}
 }
 
 func handleRequest() {
 	for {
 		//从消息广播通道接收消息
-		resp := <-broadcast
-		respStru := action.Response{
-			IfSuccessful: resp.IfSuccessful,
-			ErrInfo:      resp.ErrInfo,
-			Result:       resp.Result,
-		}
-
+		msg := <-broadcast
 		//发送消息到每个已连接客户端
 		for client := range clients {
-			err := client.WriteJSON(respStru)
+			err := client.WriteJSON(msg)
 			if err != nil {
-				log.Printf("websockets-WriteJSON error: %v", err)
+				log.Printf("websockets-error: %v", err)
 				client.Close()
 				delete(clients, client)
 			}
