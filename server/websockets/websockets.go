@@ -32,7 +32,7 @@ type Request struct {
 //Websockets ...
 func Websockets() {
 	//创建静态文件服务
-	fs := http.FileServer(http.Dir("../brower/"))
+	fs := http.FileServer(http.Dir("../browser/"))
 	http.Handle("/", fs)
 	//设置路由和处理连接方法
 	http.HandleFunc("/ws", handleConnections)
