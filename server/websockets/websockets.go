@@ -25,8 +25,8 @@ type Request struct {
 	Type     string `json:"requesttype"`
 	Peer     int    `json:"peer"`
 	Name     string `json:"username"`
-	OpName   string `json:"operatname"`
-	OpAmount int    `json:"operatamount"`
+	OpName   string `json:"operatename"`
+	OpAmount int    `json:"operateamount"`
 }
 
 //Websockets ...
