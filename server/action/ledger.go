@@ -14,7 +14,7 @@ var ledgerScript = "ledger.sh"
 
 //初始化账户
 func initUser(peer int, name string) (Response, error) {
-	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "initCC" + " " + name
+	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "initUser" + " " + name
 	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
 	if err != nil {
 		fmt.Println("ledger-" + err.Error())
@@ -27,7 +27,7 @@ func initUser(peer int, name string) (Response, error) {
 
 //进行交易
 func invoke(peer int, name string, opName string, opAmount int) (Response, error) {
-	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "invokeCC" + " " + name + " " + opName + " " + strconv.Itoa(opAmount)
+	cmd := subCommand + " " + ledgerScript + " " + strconv.Itoa(peer) + " " + "invoke" + " " + name + " " + opName + " " + strconv.Itoa(opAmount)
 	outAsBytes, err := exec.Command(command, commandArg, cmd).Output()
 	if err != nil {
 		fmt.Println("ledger-" + err.Error())
