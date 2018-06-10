@@ -54,7 +54,7 @@ services:
         - /var/run/:/host/var/run/
         - ../chaincode/go/:/opt/gopath/src/myrepo/PufferBlock/blockchain/chaincode/go
         - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
-        - ./scripts:/opt/gopath/src//myrepo/PufferBlock/blockchain/network/scripts/
+        - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
       - orderer.example.com
