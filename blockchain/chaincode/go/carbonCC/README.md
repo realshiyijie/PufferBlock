@@ -121,7 +121,7 @@ peer chaincode query -C mychannel -n mycc -c '{"Args":["queryByOwner",'\"${OWNER
 
 ```bash
 OWNER=FORREST
-OPPWNER=JENNY
+OPOWNER=JENNY
 AMOUNT=10
 peer chaincode invoke -o orderer.example.com:7050  --tls TRUE --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -c '{"Args":["transfer",'\"${OWNER}\"','\"${OPOWNER}\"','\"${AMOUNT}\"']}' 2>&1|grep "status"
 ```
