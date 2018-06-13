@@ -97,7 +97,7 @@ func (c *CarbonCC) createCarbonInfo(stub shim.ChaincodeStubInterface, args []str
 	}
 	stub.PutState(owner, carbonInfoAsBytes)
 
-	//rich.comKeys{Market, amount}
+	//复合健设置(TODO)
 
 	return shim.Success(nil)
 }
