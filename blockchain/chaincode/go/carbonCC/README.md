@@ -3,11 +3,11 @@
 ## 链码说明
 
 ```go
-//CarbonInfo 账户信息结构
+// CarbonInfo 账户信息结构
 type CarbonInfo struct {
-    //账户类型
+    // 账户类型
     Market string `json:"market"`
-    //账户额度
+    // 账户额度
     Amount int    `json:"amount"`
 }
 ```

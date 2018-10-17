@@ -20,49 +20,49 @@ func main() {
 	}
 }
 
-//CarbonCC 链码结构
+// CarbonCC 链码结构
 type CarbonCC struct {
 }
 
-//CarbonInfo 账户信息结构：Market表示账户类型，Amount表示账户额度
+// CarbonInfo 账户信息结构：Market表示账户类型，Amount表示账户额度
 type CarbonInfo struct {
 	Market string `json:"market"`
 	Amount int    `json:"amount"`
 }
 
-//Init 链码初始化接口
+// Init 链码初始化接口
 func (c *CarbonCC) Init(stub shim.ChaincodeStubInterface) peer.Response {
 
 	return shim.Success(nil)
 }
 
-//Invoke 链码操作接口
+// Invoke 链码操作接口
 func (c *CarbonCC) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 
 	function, args := stub.GetFunctionAndParameters()
 	if function == "createCarbonInfo" {
-		//创建账户
+		// 创建账户
 		return c.createCarbonInfo(stub, args)
 	} else if function == "queryAllCarbonInfo" {
-		//查询全部账户信息
+		// 查询全部账户信息
 		return c.queryAllCarbonInfo(stub)
 	} else if function == "updateCarbonInfo" {
-		//更新账户信息
+		// 更新账户信息
 		return c.updateCarbonInfo(stub, args)
 	} else if function == "queryByOwner" {
-		//查询指定账户信息
+		// 查询指定账户信息
 		return c.queryByOwner(stub, args)
 	} else if function == "queryByMarket" {
-		//查询指定类型账户信息
+		// 查询指定类型账户信息
 		return c.queryByMarket(stub, args)
 	} else if function == "queryByAmount" {
-		//查询指定额度账户信息
+		// 查询指定额度账户信息
 		return c.queryByAmount(stub, args)
 	} else if function == "transfer" {
-		//进行交易
+		// 进行交易
 		return c.transfer(stub, args)
 	} else if function == "getHistoryForOwner" {
-		//获取指定账户历史信息
+		// 获取指定账户历史信息
 		return c.getHistoryForOwner(stub, args)
 	}
 
@@ -75,7 +75,7 @@ func (c *CarbonCC) createCarbonInfo(stub shim.ChaincodeStubInterface, args []str
 		return shim.Error("carbonCC-Incorrect number of arguments. Expecting 3.")
 	}
 
-	//owner 账户所有者，1~10位英文字母，不区分大小写
+	// owner 账户所有者，1~10位英文字母，不区分大小写
 	owner := strings.ToLower(args[0])
 	market := args[1]
 	amount, err := strconv.Atoi(args[2])
@@ -97,14 +97,14 @@ func (c *CarbonCC) createCarbonInfo(stub shim.ChaincodeStubInterface, args []str
 	}
 	stub.PutState(owner, carbonInfoAsBytes)
 
-	//复合健设置(TODO)
+	// 复合健设置(TODO)
 
 	return shim.Success(nil)
 }
 
 func (c *CarbonCC) queryAllCarbonInfo(stub shim.ChaincodeStubInterface) peer.Response {
 
-	//按照用户名命名规则选定范围：a~zzzzzzzzzz
+	// 按照用户名命名规则选定范围：a~zzzzzzzzzz
 	startKey := "a"
 	endKey := "zzzzzzzzzz"
 
@@ -248,7 +248,7 @@ func (c *CarbonCC) transfer(stub shim.ChaincodeStubInterface, args []string) pee
 	return shim.Success(nil)
 }
 
-//获取指定账户历史信息
+// 获取指定账户历史信息
 func (c *CarbonCC) getHistoryForOwner(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 
 	if len(args) != 1 {
